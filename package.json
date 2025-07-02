@@ -17,6 +17,7 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@dhiwise/component-tagger": "^1.0.9",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "20.19.4",
