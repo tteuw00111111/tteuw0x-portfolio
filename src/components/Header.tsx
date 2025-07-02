@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { FiMenu, FiX } from "react-icons/fi"; // Using react-icons for the menu icon
+import { FiMenu, FiX } from "react-icons/fi";
 
 const menuItems = [
   { id: "inicio", label: "Inicio", href: "#inicio" },
@@ -18,7 +18,6 @@ export const Header: React.FC = () => {
   const [activeSection, setActiveSection] = useState("inicio");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Intersection Observer to highlight the nav link on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,7 +27,7 @@ export const Header: React.FC = () => {
           }
         });
       },
-      { rootMargin: "-30% 0px -70% 0px" } // Highlights when the section is in the middle
+      { rootMargin: "-30% 0px -70% 0px" }
     );
 
     menuItems.forEach((item) => {
@@ -49,7 +48,7 @@ export const Header: React.FC = () => {
           </Link>
         </h1>
 
-        {/* Mobile Menu Button */}
+        {}
         <button
           className="lg:hidden p-2 text-global-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -58,7 +57,7 @@ export const Header: React.FC = () => {
           {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </button>
 
-        {/* Desktop Navigation Menu */}
+        {}
         <nav
           className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           role="menubar"
@@ -69,7 +68,6 @@ export const Header: React.FC = () => {
               <Link
                 key={item.id}
                 href={item.href}
-                scroll={false} // Important for smooth scrolling
                 className={`
                   font-poppins font-bold text-[24px] leading-[36px]
                   transition-colors duration-300
@@ -88,7 +86,7 @@ export const Header: React.FC = () => {
         </nav>
       </div>
 
-      {/* Mobile Menu (conditionally rendered) */}
+      {}
       {isMenuOpen && (
         <nav className="lg:hidden bg-[#1e1e1e] px-4 pb-4" role="menubar">
           <div className="flex flex-col gap-4 items-start">
@@ -96,7 +94,6 @@ export const Header: React.FC = () => {
               <Link
                 key={item.id}
                 href={item.href}
-                scroll={false}
                 onClick={() => setIsMenuOpen(false)}
                 className={`w-full py-2 font-poppins font-bold text-xl ${
                   activeSection === item.id

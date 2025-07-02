@@ -3,38 +3,44 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-// Custom hook with the corrected logic
-const useTypewriter = (text: string, speed: number = 100) => {
+const useTypewriter = (
+  text: string,
+  speed: number = 50,
+  enabled: boolean = true
+) => {
   const [displayText, setDisplayText] = useState("");
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
+    if (!enabled) {
+      setDisplayText("");
+      setIsFinished(false);
+      return;
+    }
+
     setDisplayText("");
     setIsFinished(false);
 
     let i = 0;
     const typingInterval = setInterval(() => {
       if (i < text.length) {
-        // Corrected line: Build substring from original text
         setDisplayText(text.substring(0, i + 1));
         i++;
       } else {
-        setIsFinished(true);
         clearInterval(typingInterval);
+        setIsFinished(true);
       }
     }, speed);
 
     return () => clearInterval(typingInterval);
-  }, [text, speed]);
+  }, [text, speed, enabled]);
 
   return { displayText, isFinished };
 };
 
-// The main component (no changes needed below this line)
 export const Terminal = () => {
-  const { displayText: typedCommand, isFinished: isTypingFinished } =
-    useTypewriter("cat about-me.txt");
-
+  const bioText =
+    "Olá, me chamo Matheus.\nTenho 18 anos e criei esse blog pra documentar meus estudos.\nAtualmente ainda me considero um iniciante em desenvolvimento e análise de malware.\nGosto de desenvolvê-los principalmente em C/C++.";
   const asciiArt = `..............
             ..,;:ccc,.
           ......''';lxO.
@@ -57,6 +63,24 @@ export const Terminal = () => {
                                             .'
                                              .`;
 
+  const { displayText: typedCommand, isFinished: commandFinished } =
+    useTypewriter("cat about-me.txt", 100);
+
+  const { displayText: typedAscii, isFinished: asciiFinished } = useTypewriter(
+    asciiArt,
+    2,
+    commandFinished
+  );
+
+  const { displayText: typedBio, isFinished: bioFinished } = useTypewriter(
+    bioText,
+    15,
+    commandFinished
+  );
+
+  const { displayText: typedContact, isFinished: contactFinished } =
+    useTypewriter("./contact.sh", 100, bioFinished && asciiFinished);
+
   return (
     <div className="group relative w-full max-w-2xl mx-auto font-jetbrains-mono select-none">
       <Image
@@ -75,35 +99,33 @@ export const Terminal = () => {
             <span className="text-red-700">root@tteuw0x</span>
             <span className="text-white">:</span>
             <span className="text-gray-200">~$ {typedCommand}</span>
-            {!isTypingFinished && (
+            {!commandFinished && (
               <span className="ml-2 h-4 w-2 animate-blink bg-gray-200 inline-block" />
             )}
           </p>
-          {isTypingFinished && (
+
+          {commandFinished && (
             <div className="flex gap-4 items-start">
+              {}
               <pre className="text-red-700 text-[5px] font-bold leading-tight pt-1">
-                {asciiArt}
+                {typedAscii}
               </pre>
-              <div className="text-white text-xs font-thin leading-relaxed">
-                Olá, me chamo <span className="text-red-700">Matheus</span>.
-                <br />
-                Tenho <span className="text-red-700">18 anos</span> e criei esse
-                blog pra documentar meus estudos.
-                <br />
-                Atualmente ainda me considero um iniciante em desenvolvimento e
-                análise de malware.
-                <br />
-                Gosto de desenvolvê-los principalmente em{" "}
-                <span className="text-red-700">C/C++</span>.
+              <div className="text-white text-xs font-thin leading-relaxed whitespace-pre-wrap">
+                <span className="text-red-700">Matheus</span>
+                {typedBio.substring(7)}
               </div>
             </div>
           )}
-          {isTypingFinished && (
+
+          {}
+          {bioFinished && asciiFinished && (
             <p className="text-sm font-thin">
               <span className="text-red-700">root@tteuw0x</span>
               <span className="text-white">:</span>
-              <span className="text-gray-200">~$ ./contact.sh</span>
-              <span className="ml-2 h-4 w-2 animate-blink bg-gray-200 inline-block" />
+              <span className="text-gray-200">~$ {typedContact}</span>
+              {!contactFinished && (
+                <span className="ml-2 h-4 w-2 animate-blink bg-gray-200 inline-block" />
+              )}
             </p>
           )}
         </div>
