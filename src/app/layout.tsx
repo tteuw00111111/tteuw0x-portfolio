@@ -1,7 +1,20 @@
 import React from "react";
 import Script from "next/script";
+import { Poppins, JetBrains_Mono } from "next/font/google"; // 1. Import JetBrains Mono
 import "./globals.css";
 import "../styles/index.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-poppins",
+});
+
+const jetbrains_mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"], // Use '400' for regular, '700' for bold
+  variable: "--font-jetbrains-mono",
+});
 
 export const viewport = {
   width: "device-width",
@@ -18,20 +31,18 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
+    // 3. Add the font variables to the <html> tag
+    <html
+      lang="en"
+      className={`${poppins.variable} ${jetbrains_mono.variable}`}
+    >
       <body>
         {children}
-
-        {/* 2. Replace the <script> tag with the <Script> component */}
-        <Script
-          id="rocket-script" // An ID is required for the component
-          strategy="afterInteractive" // Loads the script after the page is interactive
-          src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flunamatey4493back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"
-        />
+        <Script id="rocket-script" strategy="afterInteractive" src="..." />
       </body>
     </html>
   );

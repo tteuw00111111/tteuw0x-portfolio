@@ -1,16 +1,17 @@
-// src/components/Header.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { FiMenu, FiX } from "react-icons/fi"; // Using react-icons for the menu icon
 
 const menuItems = [
-  { id: "inicio", label: "Inicio" },
-  { id: "sobre", label: "Sobre" },
-  { id: "habilidades", label: "Habilidades" },
-  { id: "projetos", label: "Projetos" },
-  { id: "curriculo", label: "Curriculo" },
-  { id: "contato", label: "Contato" },
+  { id: "inicio", label: "Inicio", href: "#inicio" },
+  { id: "sobre", label: "Sobre", href: "#sobre" },
+  { id: "habilidades", label: "Habilidades", href: "#habilidades" },
+  { id: "projetos", label: "Projetos", href: "#projetos" },
+  { id: "curriculo", label: "Curriculo", href: "#curriculo" },
+  { id: "contato", label: "Contato", href: "#contato" },
+  { id: "language", label: "Language", href: "#language" },
 ];
 
 export const Header: React.FC = () => {
@@ -27,24 +28,22 @@ export const Header: React.FC = () => {
           }
         });
       },
-      { rootMargin: "-30% 0px -70% 0px" } // Highlights when the section is in the middle of the screen
+      { rootMargin: "-30% 0px -70% 0px" } // Highlights when the section is in the middle
     );
 
     menuItems.forEach((item) => {
       const element = document.getElementById(item.id);
-      if (element) {
-        observer.observe(element);
-      }
+      if (element) observer.observe(element);
     });
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-sm py-4 px-[70px]">
-      <div className="flex justify-between items-center w-full">
+    <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
+      <div className="relative flex justify-between items-center w-full px-4 sm:px-8 lg:px-[70px] py-6">
         {/* Logo */}
-        <h1 className="text-header-gradient font-poppins font-bold text-[40px] leading-[60px]">
+        <h1 className="text-header-gradient font-poppins font-bold text-3xl md:text-[40px] leading-[60px]">
           <Link href="#inicio" scroll={false}>
             &lt;tteuw0x&gt;
           </Link>
@@ -52,19 +51,24 @@ export const Header: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 text-global-text2"
+          className="lg:hidden p-2 text-global-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {/* SVG for hamburger/close icon */}
+          {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </button>
 
         {/* Desktop Navigation Menu */}
-        <nav className="hidden lg:flex" role="menubar">
+        <nav
+          className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          role="menubar"
+        >
+          {" "}
           <div className="flex gap-[54px] items-center">
             {menuItems.map((item) => (
               <Link
                 key={item.id}
-                href={`#${item.id}`}
+                href={item.href}
                 scroll={false} // Important for smooth scrolling
                 className={`
                   font-poppins font-bold text-[24px] leading-[36px]
@@ -72,7 +76,7 @@ export const Header: React.FC = () => {
                   ${
                     activeSection === item.id
                       ? "text-header-gradient"
-                      : "text-[#d0ccc6] hover:text-header-gradient"
+                      : "text-global-2 hover:text-header-gradient"
                   }
                 `}
                 aria-current={activeSection === item.id ? "page" : undefined}
@@ -80,13 +84,32 @@ export const Header: React.FC = () => {
                 {item.label}
               </Link>
             ))}
-            {/* Language toggle can go here */}
           </div>
         </nav>
       </div>
+
       {/* Mobile Menu (conditionally rendered) */}
       {isMenuOpen && (
-        <nav className="lg:hidden mt-4">{/* Mobile menu items go here */}</nav>
+        <nav className="lg:hidden bg-[#1e1e1e] px-4 pb-4" role="menubar">
+          <div className="flex flex-col gap-4 items-start">
+            {menuItems.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                scroll={false}
+                onClick={() => setIsMenuOpen(false)}
+                className={`w-full py-2 font-poppins font-bold text-xl ${
+                  activeSection === item.id
+                    ? "text-header-gradient"
+                    : "text-global-2"
+                }`}
+                aria-current={activeSection === item.id ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
       )}
     </header>
   );

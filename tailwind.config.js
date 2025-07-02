@@ -1,23 +1,43 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx,html,mdx}"],
-  darkMode: "class",
+  // Specifies all the files where you'll be writing Tailwind classes.
+  content: [
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+
+  // The core of your design system.
   theme: {
+    // Use 'extend' to add your customizations without overriding Tailwind's defaults.
     extend: {
+      // Defines custom font families using the CSS variables from next/font.
+      fontFamily: {
+        poppins: ["var(--font-poppins)", "sans-serif"],
+        "jetbrains-mono": ["var(--font-jetbrains-mono)", "monospace"],
+      },
+
+      // Defines custom colors for your project.
       colors: {
-        global: {
-          background1: "var(--global-bg-1)",
-          text1: "var(--global-text-1)",
-          text2: "var(--global-text-2)",
-        },
-        header: {
-          gradientStart: "var(--header-gradient-start)",
-          gradientEnd: "var(--header-gradient-end)",
+        "terminal-red": "#c31727", // Example red from your design
+        "terminal-header": "#1a1a1a",
+        "terminal-body": "#0d0d0d",
+      },
+
+      // Defines the steps for a custom animation.
+      keyframes: {
+        blink: {
+          "0%, 100%": { opacity: 1 },
+          "50%": { opacity: 0 },
         },
       },
-      fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+
+      // Makes the keyframes usable as a utility class (e.g., 'animate-blink').
+      animation: {
+        blink: "blink 1.2s infinite step-end",
       },
     },
   },
+
+  // Used to add official and third-party plugins.
   plugins: [],
 };
