@@ -1,83 +1,93 @@
+// src/components/Header.tsx
 "use client";
-import React, { useState } from "react";
 
-const Header: React.FC = () => {
-  const [activeMenuItem, setActiveMenuItem] = useState("Inicio");
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
-  const menuItems = [
-    { id: "inicio", label: "Inicio", href: "#inicio" },
-    { id: "sobre", label: "Sobre", href: "#sobre" },
-    { id: "habilidades", label: "Habilidades", href: "#habilidades" },
-    { id: "projetos", label: "Projetos", href: "#projetos" },
-    { id: "curriculo", label: "Curriculo", href: "#curriculo" },
-    { id: "contato", label: "Contato", href: "#contato" },
-    { id: "language", label: "Language", href: "#language" },
-  ];
+const menuItems = [
+  { id: "inicio", label: "Inicio" },
+  { id: "sobre", label: "Sobre" },
+  { id: "habilidades", label: "Habilidades" },
+  { id: "projetos", label: "Projetos" },
+  { id: "curriculo", label: "Curriculo" },
+  { id: "contato", label: "Contato" },
+];
 
-  const handleMenuClick = (itemLabel: string) => {
-    setActiveMenuItem(itemLabel);
-  };
+export const Header: React.FC = () => {
+  const [activeSection, setActiveSection] = useState("inicio");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Intersection Observer to highlight the nav link on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -70% 0px" } // Highlights when the section is in the middle of the screen
+    );
+
+    menuItems.forEach((item) => {
+      const element = document.getElementById(item.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header className="w-full pt-12 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-[70px]">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full gap-6 lg:gap-0">
-        {/* Logo/Brand */}
-        <div className="w-full lg:w-auto">
-          <h1 className="text-header-gradient font-poppins font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] leading-tight lg:leading-[60px] text-left">
+    <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-sm py-4 px-[70px]">
+      <div className="flex justify-between items-center w-full">
+        {/* Logo */}
+        <h1 className="text-header-gradient font-poppins font-bold text-[40px] leading-[60px]">
+          <Link href="#inicio" scroll={false}>
             &lt;tteuw0x&gt;
-          </h1>
-        </div>
+          </Link>
+        </h1>
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 text-global-text2 hover:text-header-gradientStart transition-colors duration-200"
-          aria-label="Toggle menu"
+          className="lg:hidden p-2 text-global-text2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          {/* SVG for hamburger/close icon */}
         </button>
 
-        {/* Navigation Menu */}
-        <nav className="w-full lg:w-auto" role="menubar">
-          <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-[54px] justify-start lg:justify-center items-start lg:items-center lg:self-end">
-            {menuItems.map((item, index) => (
-              <button
+        {/* Desktop Navigation Menu */}
+        <nav className="hidden lg:flex" role="menubar">
+          <div className="flex gap-[54px] items-center">
+            {menuItems.map((item) => (
+              <Link
                 key={item.id}
-                role="menuitem"
-                onClick={() => handleMenuClick(item.label)}
+                href={`#${item.id}`}
+                scroll={false} // Important for smooth scrolling
                 className={`
-                  font-poppins font-bold text-base sm:text-lg md:text-xl lg:text-[24px] 
-                  leading-tight lg:leading-[36px] text-left
-                  transition-all duration-300 ease-in-out
-                  hover:scale-105 active:scale-95
-                  focus:outline-none focus:ring-2 focus:ring-header-gradientStart focus:ring-opacity-50
+                  font-poppins font-bold text-[24px] leading-[36px]
+                  transition-colors duration-300
                   ${
-                    activeMenuItem === item.label
+                    activeSection === item.id
                       ? "text-header-gradient"
-                      : "text-global-2 hover:text-header-gradient"
+                      : "text-[#d0ccc6] hover:text-header-gradient"
                   }
                 `}
-                aria-current={
-                  activeMenuItem === item.label ? "page" : undefined
-                }
+                aria-current={activeSection === item.id ? "page" : undefined}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
+            {/* Language toggle can go here */}
           </div>
         </nav>
       </div>
+      {/* Mobile Menu (conditionally rendered) */}
+      {isMenuOpen && (
+        <nav className="lg:hidden mt-4">{/* Mobile menu items go here */}</nav>
+      )}
     </header>
   );
 };
