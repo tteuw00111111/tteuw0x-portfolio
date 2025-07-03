@@ -1,0 +1,45 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "curriculum": "Curriculum",
+    "contact": "Contact"
+  },
+  "home": {
+    "title_line1": "Matheus",
+    "title_line2": "Luna",
+    "subtitle_line1": "Developer",
+    "subtitle_line2": "Cybersecurity Student",
+    "bio_p1": "Computer Science student focusing on Cybersecurity, including offensive security, networks, and Linux. I have solid knowledge in languages like C, C++, and JavaScript, along with experience in vulnerability exploration, reverse engineering, and malware development.",
+    "bio_p2": "I am currently deepening my studies in reverse engineering, malware development, and analysis. I have been working with tools like IDA Pro and studying Command and Control (C2) and frameworks like Cobalt Strike."
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Introduction",
+    "bio": "Computer Science student at Universidade Veiga de Almeida, focusing on cybersecurity, offensive security, reverse engineering, and malware development. Solid knowledge in C, C++, and JavaScript.",
+    "cards": [
+      {
+        "title": "Experience",
+        "value": "+3",
+        "description": "Years in the field."
+      },
+      {
+        "title": "Projects",
+        "value": "+5",
+        "description": "on Github."
+      },
+      {
+        "title": "Certificates",
+        "value": "+5",
+        "description": "Completed."
+      }
+    ]
+  },
+  "terminal": {
+    "bio": "Hi, my name is Matheus.\nI'm 18 years old and I created this blog to document my studies.\nI still consider myself a beginner in malware development and analysis.\nI enjoy developing them mainly in C/C++.",
+    "command1": "cat about-me.txt",
+    "command2": "./contact.sh"
+  }
+}

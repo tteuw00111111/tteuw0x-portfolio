@@ -1,8 +1,8 @@
 import React from "react";
 import Script from "next/script";
-import { Poppins, JetBrains_Mono } from "next/font/google"; // 1. Import JetBrains Mono
-import "./globals.css";
-import "../styles/index.css";
+import { Poppins, JetBrains_Mono } from "next/font/google";
+import { i18n, Locale } from "@/i18n.config";
+import "../globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,9 +12,13 @@ const poppins = Poppins({
 
 const jetbrains_mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"], // Use '400' for regular, '700' for bold
+  weight: ["400", "700"],
   variable: "--font-jetbrains-mono",
 });
+
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
 
 export const viewport = {
   width: "device-width",
@@ -22,8 +26,8 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: "Next.js with Tailwind CSS",
-  description: "A boilerplate project with Next.js and Tailwind CSS",
+  title: "Next.js Portfolio",
+  description: "A portfolio project with Next.js and Tailwind CSS",
   icons: {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
   },
@@ -31,13 +35,14 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { lang: Locale };
 }) {
   return (
-    // 3. Add the font variables to the <html> tag
     <html
-      lang="en"
+      lang={params.lang}
       className={`${poppins.variable} ${jetbrains_mono.variable}`}
     >
       <body>

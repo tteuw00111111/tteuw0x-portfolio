@@ -10,6 +10,19 @@ interface StatCardProps {
   description: string;
 }
 
+type AboutProps = {
+  dictionary: {
+    title: string;
+    subtitle: string;
+    bio: string;
+    cards: {
+      title: string;
+      value: string;
+      description: string;
+    }[];
+  };
+};
+
 const StatCard: React.FC<StatCardProps> = ({ title, value, description }) => {
   return (
     <div
@@ -38,7 +51,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, description }) => {
   );
 };
 
-export const About = () => {
+export const About: React.FC<AboutProps> = ({ dictionary }) => {
   const targetRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -46,7 +59,7 @@ export const About = () => {
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["400px", "-400px"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["150px", "-150px"]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -73,30 +86,38 @@ export const About = () => {
     <section
       ref={targetRef}
       id="sobre"
-      className="min-h-screen flex items-center justify-center bg-global-1 py-20 px-4"
+      className="min-h-screen flex items-center justify-center bg-global-1 py-24 sm:py-32 px-4"
     >
-      {}
       <motion.div
         style={{ x }}
-        className="max-w-7xl mx-auto w-full flex flex-col items-center gap-12"
+        className="max-w-6xl mx-auto w-full flex flex-col items-center gap-12 md:gap-14 lg:gap-16"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {}
         <motion.div variants={itemVariants} className="text-center">
-          <h2 className="font-poppins font-semibold text-6xl lg:text-8xl text-global-2 leading-tight">
-            Sobre Mim
+          <h2
+            className="
+  text-3xl            /* base */
+  sm:text-4xl
+  md:text-5xl
+  lg:text-6xl
+  xl:text-7xl
+  hd:text-8xl
+  font-semibold text-global-2 leading-tight
+"
+          >
+            {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-2xl text-global-1 whitespace-nowrap mt-2">
-            Introdução
+            {dictionary.subtitle}
           </p>
         </motion.div>
 
         <motion.div
           variants={itemVariants}
-          className="group relative w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]"
+          className="group relative w-60 h-60 sm:w-72 sm:h-72 lg:w-96 lg:h-96"
         >
           <Image
             src="/images/vector_about.svg"
@@ -116,28 +137,20 @@ export const About = () => {
           variants={itemVariants}
           className="font-poppins text-lg text-global-1 leading-relaxed text-center max-w-3xl"
         >
-          Estudante de Ciência da Computação na Universidade Veiga de Almeida,
-          com foco em cibersegurança, segurança ofensiva, engenharia reversa, e
-          desenvolvimento de malwares. Sólidos conhecimentos em C, C++ e
-          JavaScript.
+          {dictionary.bio}
         </motion.p>
-
-        {}
         <motion.div
           variants={itemVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full mt-8"
         >
-          <StatCard
-            title="Experiência"
-            value="+3"
-            description="Anos na área."
-          />
-          <StatCard title="Projetos" value="+5" description="no Github." />
-          <StatCard
-            title="Certificados"
-            value="+5"
-            description="Finalizados."
-          />
+          {dictionary.cards.map((card, index) => (
+            <StatCard
+              key={index}
+              title={card.title}
+              value={card.value}
+              description={card.description}
+            />
+          ))}
         </motion.div>
       </motion.div>
     </section>

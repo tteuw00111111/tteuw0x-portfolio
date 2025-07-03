@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.6.1",
+    "@types/negotiator": "^0.6.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^12.23.0",
+    "hooks": "^0.3.2",
+    "negotiator": "^1.0.0",
     "next": "15.3.4",
     "next-i18next": "^15.4.2",
     "react": "^19.0.0",

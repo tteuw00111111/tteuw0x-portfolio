@@ -38,9 +38,15 @@ const useTypewriter = (
   return { displayText, isFinished };
 };
 
-export const Terminal = () => {
-  const bioText =
-    "Olá, me chamo Matheus.\nTenho 18 anos e criei esse blog pra documentar meus estudos.\nAtualmente ainda me considero um iniciante em desenvolvimento e análise de malware.\nGosto de desenvolvê-los principalmente em C/C++.";
+type TerminalProps = {
+  dictionary: {
+    bio: string;
+    command1: string;
+    command2: string;
+  };
+};
+
+export const Terminal: React.FC<TerminalProps> = ({ dictionary }) => {
   const asciiArt = `..............
             ..,;:ccc,.
           ......''';lxO.
@@ -64,25 +70,22 @@ export const Terminal = () => {
                                              .`;
 
   const { displayText: typedCommand, isFinished: commandFinished } =
-    useTypewriter("cat about-me.txt", 100);
-
+    useTypewriter(dictionary.command1, 100);
   const { displayText: typedAscii, isFinished: asciiFinished } = useTypewriter(
     asciiArt,
     2,
     commandFinished
   );
-
   const { displayText: typedBio, isFinished: bioFinished } = useTypewriter(
-    bioText,
+    dictionary.bio,
     15,
     commandFinished
   );
-
   const { displayText: typedContact, isFinished: contactFinished } =
-    useTypewriter("./contact.sh", 100, bioFinished && asciiFinished);
+    useTypewriter(dictionary.command2, 100, bioFinished && asciiFinished);
 
   return (
-    <div className="group relative w-full max-w-2xl mx-auto font-jetbrains-mono select-none">
+    <div className="group relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl hd:max-w-3xl mx-auto">
       <Image
         src="/images/vector.svg"
         alt="Background vector"
@@ -106,18 +109,15 @@ export const Terminal = () => {
 
           {commandFinished && (
             <div className="flex gap-4 items-start">
-              {}
               <pre className="text-red-700 text-[5px] font-bold leading-tight pt-1">
                 {typedAscii}
               </pre>
-              <div className="text-white text-xs font-thin leading-relaxed whitespace-pre-wrap">
-                <span className="text-red-700">Matheus</span>
-                {typedBio.substring(7)}
+              <div className="text-white text-xs md:text-sm font-thin leading-relaxed whitespace-pre-wrap">
+                {typedBio}
               </div>
             </div>
           )}
 
-          {}
           {bioFinished && asciiFinished && (
             <p className="text-sm font-thin">
               <span className="text-red-700">root@tteuw0x</span>

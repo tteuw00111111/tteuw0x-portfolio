@@ -34,4 +34,14 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .text-fluid-h1 {
+    font-size: clamp(2.25rem, 5vw + 0.5rem, 6rem);
+  }
+  .text-fluid-h2 {
+    font-size: clamp(1.5rem, 3.8vw + 0.3rem, 3rem);
+  }
+  .text-fluid-body {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+  }
 }

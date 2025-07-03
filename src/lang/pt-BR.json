@@ -1,0 +1,45 @@
+{
+  "header": {
+    "home": "Início",
+    "about": "Sobre",
+    "skills": "Habilidades",
+    "projects": "Projetos",
+    "curriculum": "Currículo",
+    "contact": "Contato"
+  },
+  "home": {
+    "title_line1": "Matheus",
+    "title_line2": "Luna",
+    "subtitle_line1": "Desenvolvedor",
+    "subtitle_line2": "Estudante de Cibersegurança",
+    "bio_p1": "Estudante de Ciência da Computação com foco em Cibersegurança, em segurança ofensiva, redes e Linux. Possuo conhecimento sólido em linguagens como C, C++ e JavaScript, além de experiência em exploração de vulnerabilidades, engenharia reversa e desenvolvimento de malware.",
+    "bio_p2": "Atualmente tenho aprofundado meus estudos em engenharia reversa, desenvolvimento e análise de malwares. Tenho trabalhado com ferramentas como IDA Pro, além de estudar Command and Control (C2) e frameworks como Cobalt Strike."
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "subtitle": "Introdução",
+    "bio": "Estudante de Ciência da Computação na Universidade Veiga de Almeida, com foco em cibersegurança, segurança ofensiva, engenharia reversa, e desenvolvimento de malwares. Sólidos conhecimentos em C, C++ e JavaScript.",
+    "cards": [
+      {
+        "title": "Experiência",
+        "value": "+3",
+        "description": "Anos na área."
+      },
+      {
+        "title": "Projetos",
+        "value": "+5",
+        "description": "no Github."
+      },
+      {
+        "title": "Certificados",
+        "value": "+5",
+        "description": "Finalizados."
+      }
+    ]
+  },
+  "terminal": {
+    "bio": "Olá, me chamo Matheus.\nTenho 18 anos e criei esse blog pra documentar meus estudos.\nAtualmente ainda me considero um iniciante em desenvolvimento e análise de malware.\nGosto de desenvolvê-los principalmente em C/C++.",
+    "command1": "cat sobre-mim.txt",
+    "command2": "./contato.sh"
+  }
+}
