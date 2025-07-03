@@ -63,6 +63,7 @@ export const Header: React.FC<{
     return () => observer.disconnect();
   }, [menuItems]);
 
+  // Effect to disable body scrolling when the mobile menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -143,7 +144,8 @@ export const Header: React.FC<{
                 key={item.id}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`w-full text-center py-4 font-poppins font-bold text-lg ${
+                className={`w-full text-center py-4 font-poppins font-bold text-base ${
+                  // Changed text-lg to text-base
                   activeSection === item.id
                     ? "text-header-gradient"
                     : "text-global-2"
@@ -153,7 +155,7 @@ export const Header: React.FC<{
                 {item.label}
               </Link>
             ))}
-            <div className="text-global-2 font-poppins font-bold text-lg py-4">
+            <div className="text-global-2 font-poppins font-bold text-base py-4">
               {lang === "pt-BR" ? (
                 <Link href={redirectedPathName("en")}>EN</Link>
               ) : (
