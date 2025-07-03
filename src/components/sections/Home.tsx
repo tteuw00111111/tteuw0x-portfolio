@@ -4,6 +4,12 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Terminal } from "@/components/Terminal";
 
+type TerminalDictionary = {
+  bio: string;
+  command1: string;
+  command2: string;
+};
+
 type HomeProps = {
   dictionary: {
     title_line1: string;
@@ -13,7 +19,7 @@ type HomeProps = {
     bio_p1: string;
     bio_p2: string;
   };
-  terminalDictionary: any;
+  terminalDictionary: TerminalDictionary;
 };
 
 export const Home: React.FC<HomeProps> = ({
