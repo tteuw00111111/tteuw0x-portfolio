@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Locale } from "@/i18n.config";
 import { FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 type HeaderDictionary = {
   home: string;
@@ -62,6 +63,22 @@ export const Header: React.FC<{
     return () => observer.disconnect();
   }, [menuItems]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
+
+  const menuVariants = {
+    hidden: { y: "-100%", opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
+
   return (
     <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
       <div className="relative flex justify-between items-center w-full px-4 sm:px-8 lg:px-[70px] py-4">
@@ -69,7 +86,6 @@ export const Header: React.FC<{
           className="text-header-gradient font-poppins font-bold
                text-xl sm:text-2xl lg:text-3xl"
         >
-          {" "}
           <Link href="#inicio">&lt;tteuw0x&gt;</Link>
         </h1>
 
@@ -111,15 +127,23 @@ export const Header: React.FC<{
         </nav>
       </div>
 
-      {isMenuOpen && (
-        <nav className="lg:hidden bg-[#1e1e1e] px-4 pb-4" role="menubar">
-          <div className="md:hidden fixed inset-0 z-40 bg-global-1/95 backdrop-blur-lg flex flex-col items-center justify-center">
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            className="md:hidden fixed inset-0 z-40 bg-global-1 flex flex-col items-center justify-center"
+            variants={menuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.4 }}
+            role="menubar"
+          >
             {menuItems.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`w-full py-2 font-poppins font-bold text-xl ${
+                className={`w-full text-center py-4 font-poppins font-bold text-lg ${
                   activeSection === item.id
                     ? "text-header-gradient"
                     : "text-global-2"
@@ -129,16 +153,16 @@ export const Header: React.FC<{
                 {item.label}
               </Link>
             ))}
-            <div className="text-global-2 font-poppins font-bold text-xl py-2">
+            <div className="text-global-2 font-poppins font-bold text-lg py-4">
               {lang === "pt-BR" ? (
                 <Link href={redirectedPathName("en")}>EN</Link>
               ) : (
                 <Link href={redirectedPathName("pt-BR")}>PT</Link>
               )}
             </div>
-          </div>
-        </nav>
-      )}
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
