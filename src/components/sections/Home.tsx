@@ -58,12 +58,15 @@ export const Home: React.FC<HomeProps> = ({
     <motion.section
       ref={targetRef}
       id="inicio"
-      className="min-h-screen flex items-center justify-center pt-24 lg:pt-0"
+      className="min-h-screen flex items-center justify-center pt-24 lg:pt-0 "
+      style={{
+        scale: useTransform(scrollYProgress, [0, 1], [1, 0.95]),
+        opacity: useTransform(scrollYProgress, [0, 1], [1, 0.75]),
+      }}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* Changed flex-col-reverse to flex-col */}
       <motion.div
         className="flex flex-col lg:flex-row
             w-full max-w-6xl mx-auto px-4 md:px-6

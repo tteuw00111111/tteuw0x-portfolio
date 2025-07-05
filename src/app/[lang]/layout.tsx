@@ -35,14 +35,14 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-  params,
+  params: { lang },
 }: {
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
   return (
     <html
-      lang={params.lang}
+      lang={lang}
       className={`${poppins.variable} ${jetbrains_mono.variable}`}
     >
       <body>

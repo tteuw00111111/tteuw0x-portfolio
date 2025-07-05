@@ -86,7 +86,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
     <section
       ref={targetRef}
       id="sobre"
-      className="min-h-screen flex items-center justify-center bg-global-1 py-24 sm:py-32 px-4"
+      className="bg-global-1 pt-12 sm:pt-16 pb-24 sm:pb-32 px-4"
     >
       <motion.div
         style={{ x }}
@@ -96,10 +96,16 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <motion.div variants={itemVariants} className="text-center">
+        <motion.div
+          variants={itemVariants}
+          className="text-center"
+          style={{
+            x: useTransform(scrollYProgress, [0, 1], ["50px", "-50px"]),
+          }}
+        >
           <h2
             className="
-  text-3xl            /* base */
+  text-3xl           
   sm:text-4xl
   md:text-5xl
   lg:text-6xl
@@ -116,6 +122,9 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         </motion.div>
 
         <motion.div
+          style={{
+            x: useTransform(scrollYProgress, [0, 1], ["-50px", "50px"]),
+          }}
           variants={itemVariants}
           className="group relative w-60 h-60 sm:w-72 sm:h-72 lg:w-96 lg:h-96"
         >
