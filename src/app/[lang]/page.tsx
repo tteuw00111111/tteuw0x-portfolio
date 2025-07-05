@@ -4,6 +4,8 @@ import { Header } from "@/components/Header";
 import { Home } from "@/components/sections/Home";
 import { About } from "@/components/sections/About";
 
+import { AnimatedBackground } from "@/components/AnimatedBackground";
+
 export default async function Page({
   params: { lang },
 }: {
@@ -15,11 +17,13 @@ export default async function Page({
     <>
       <Header lang={lang} dictionary={dictionary.header} />
       <main className="relative">
-        <Home
-          dictionary={dictionary.home}
-          terminalDictionary={dictionary.terminal}
-        />
-        <About dictionary={dictionary.about} />
+        <AnimatedBackground>
+          <Home
+            dictionary={dictionary.home}
+            terminalDictionary={dictionary.terminal}
+          />
+          <About dictionary={dictionary.about} />
+        </AnimatedBackground>
       </main>
     </>
   );

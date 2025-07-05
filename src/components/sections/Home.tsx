@@ -32,7 +32,7 @@ export const Home: React.FC<HomeProps> = ({
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "-50%"]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
