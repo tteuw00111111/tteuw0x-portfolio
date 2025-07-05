@@ -35,7 +35,8 @@
         "value": "+5",
         "description": "Finalizados."
       }
-    ]
+    ],
+    "download_cv": "Baixar Currículo"
   },
   "terminal": {
     "bio": "Olá, me chamo Matheus.\nTenho 18 anos e criei esse blog pra documentar meus estudos.\nAtualmente ainda me considero um iniciante em desenvolvimento e análise de malware.\nGosto de desenvolvê-los principalmente em C/C++.",

@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { DownloadCVButton } from "@/components/DownloadCVButton";
 
 interface StatCardProps {
   title: string;
@@ -20,6 +21,7 @@ type AboutProps = {
       value: string;
       description: string;
     }[];
+    download_cv: string;
   };
 };
 
@@ -160,6 +162,12 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
               description={card.description}
             />
           ))}
+        </motion.div>
+        <motion.div
+          variants={itemVariants}
+          className="w-full flex justify-center mt-16" // Added margin-top to create space
+        >
+          <DownloadCVButton text={dictionary.download_cv} />
         </motion.div>
       </motion.div>
     </section>
