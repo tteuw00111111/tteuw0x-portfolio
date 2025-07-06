@@ -12,13 +12,14 @@
     "title_line2": "Luna",
     "subtitle_line1": "Developer",
     "subtitle_line2": "Cybersecurity Student",
-    "bio_p1": "Computer Science student focusing on Cybersecurity, including offensive security, networks, and Linux. I have solid knowledge in languages like C, C++, and JavaScript, along with experience in vulnerability exploration, reverse engineering, and malware development.",
-    "bio_p2": "I am currently deepening my studies in reverse engineering, malware development, and analysis. I have been working with tools like IDA Pro and studying Command and Control (C2) and frameworks like Cobalt Strike."
+    "bio_p1": "A Computer Science student focusing on offensive cybersecurity, I work versatilely across the full development stack, from low-level to front-end.",
+    "bio_p2": "My approach prioritizes code clarity, efficiency, and security, with extensive experience in vulnerability exploitation and a solid command of Linux.",
+    "contact_button": "Get in Touch"
   },
   "about": {
     "title": "About Me",
     "subtitle": "Introduction",
-    "bio": "Computer Science student at Universidade Veiga de Almeida, focusing on cybersecurity, offensive security, reverse engineering, and malware development. Solid knowledge in C, C++, and JavaScript.",
+    "bio": "As a Computer Science student at Veiga de Almeida University, I focus on offensive cybersecurity. My development approach prioritizes code clarity and efficiency, from designing algorithms in C/C++ to implementing responsive interfaces in TypeScript. I have extensive experience in proactively identifying security flaws in web applications and embedded systems, along with a solid command of best practices in Linux and network protocols.",
     "cards": [
       {
         "title": "Experience",
@@ -46,8 +47,72 @@
     "databases_title": "Databases",
     "devops_title": "DevOps / Cloud"
   },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Completed (or almost completed) projects and the technologies used.",
+    "see_more": "See more",
+    "projects": [
+      {
+        "title": "Nocturnal",
+        "tags": ["TypeScript", "React", "Tailwind", "Electron"]
+      },
+      {
+        "title": "Vulnerability Scanner",
+        "tags": ["C"]
+      },
+      {
+        "title": "PwnChat",
+        "tags": ["TypeScript", "React", "Tailwind", "Electron"]
+      }
+    ]
+  },
+  "curriculum": {
+    "title": "Resume",
+    "education_title": "Education",
+    "education_degree": "Bachelor's in Computer Science",
+    "education_university": "Veiga de Almeida University",
+    "education_focus": "Focus on Cybersecurity",
+    "education_period": "2025-2029",
+    "courses_title": "Courses & Certifications",
+    "courses": ["Harvard CS50X", "Comptia Security+", "Google Cybersecurity"],
+    "languages_title": "Languages",
+    "languages": [
+      { "name": "Portuguese", "level": "Native" },
+      { "name": "English", "level": "Fluent" }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch",
+    "items": [
+      {
+        "title": "E-mail",
+        "value": "tteuw021@proton.me",
+        "button": "Send Email"
+      },
+      {
+        "title": "GitHub",
+        "value": "tteuw0x",
+        "button": "View Profile"
+      },
+      {
+        "title": "Instagram",
+        "value": "@2tteuw",
+        "button": "View Profile"
+      },
+      {
+        "title": "Location",
+        "value": "RJ, Brazil",
+        "button": "View Map"
+      }
+    ]
+  },
+  "footer": {
+    "subtitle": "Fullstack Developer",
+    "text": "All rights reserved."
+  },
   "terminal": {
-    "bio": "Hi, my name is Matheus.\nI'm 18 years old and I created this blog to document my studies.\nI still consider myself a beginner in malware development and analysis.\nI enjoy developing them mainly in C/C++.",
+    "bio": "Hi, my name is Matheus.\nI'm 18 years old and a cybersecurity student. I have solid experience in exploiting SQL injection, XSS, and buffer overflows, with pre-built payloads in C/C++. \nExperience in engineering AES-GCM obfuscated shellcode and dynamic function calls for in-memory execution. \nAuthor of custom scanners in C, with URL/IP validation, gethostbyname(), optimized multithreading, and structured JSON reports.\nAdvanced reconnaissance with Nmap, Gobuster, ARP sweep, and automated parameter fuzzing in Burp Suite.\n",
     "command1": "cat about-me.txt",
     "command2": "./contact.sh"
   }

@@ -165,7 +165,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         </motion.div>
         <motion.div
           variants={itemVariants}
-          className="w-full flex justify-center mt-16" // Added margin-top to create space
+          className="w-full flex justify-center mt-16"
         >
           <DownloadCVButton text={dictionary.download_cv} />
         </motion.div>

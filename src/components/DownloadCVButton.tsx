@@ -1,4 +1,4 @@
-import React from "react";
+import React, { JSX } from "react";
 import { FaDownload } from "react-icons/fa";
 import { motion } from "framer-motion";
 

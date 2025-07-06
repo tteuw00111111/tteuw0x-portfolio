@@ -17,7 +17,7 @@ export const AnimatedBackground = ({
   const { scrollYProgress } = useScroll({
     target: mainRef,
 
-    offset: ["start start", "end 50%"],
+    offset: ["start start", "end end"],
   });
 
   const angle = useTransform(scrollYProgress, [0, 1], [45, 135]);

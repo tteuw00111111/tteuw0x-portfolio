@@ -12,13 +12,14 @@
     "title_line2": "Luna",
     "subtitle_line1": "Desenvolvedor",
     "subtitle_line2": "Estudante de Cibersegurança",
-    "bio_p1": "Estudante de Ciência da Computação com foco em Cibersegurança, em segurança ofensiva, redes e Linux. Possuo conhecimento sólido em linguagens como C, C++ e JavaScript, além de experiência em exploração de vulnerabilidades, engenharia reversa e desenvolvimento de malware.",
-    "bio_p2": "Atualmente tenho aprofundado meus estudos em engenharia reversa, desenvolvimento e análise de malwares. Tenho trabalhado com ferramentas como IDA Pro, além de estudar Command and Control (C2) e frameworks como Cobalt Strike."
+    "bio_p1": "Estudante de Ciência da Computação com foco em cibersegurança ofensiva, atuo de forma versátil em todo o stack de desenvolvimento, do baixo nível ao front-end.",
+    "bio_p2": "Minha abordagem prioriza clareza de código, eficiência e segurança, com ampla experiência na exploração de vulnerabilidades e sólido domínio em Linux.",
+    "contact_button": "Entre em Contato"
   },
   "about": {
     "title": "Sobre Mim",
     "subtitle": "Introdução",
-    "bio": "Estudante de Ciência da Computação na Universidade Veiga de Almeida, com foco em cibersegurança, segurança ofensiva, engenharia reversa, e desenvolvimento de malwares. Sólidos conhecimentos em C, C++ e JavaScript.",
+    "bio": "Estudante de Ciência da Computação na Universidade Veiga de Almeida, com foco em cibersegurança ofensiva. Minha abordagem de desenvolvimento prioriza clareza de código e eficiência, desde a concepção de algoritmos em C e C++ até a implementação de interfaces responsivas em TypeScript. Possuo ampla experiência na identificação proativa de falhas de segurança em aplicações web e sistemas embarcados, além de um sólido domínio das melhores práticas em Linux e protocolos de rede.",
     "cards": [
       {
         "title": "Experiência",
@@ -46,8 +47,73 @@
     "databases_title": "Banco de Dados",
     "devops_title": "DevOps / Cloud"
   },
+  "portfolio": {
+    "title": "Portfólio",
+    "subtitle": "Projetos concluídos (ou quase) e tecnologias utilizadas.",
+    "see_more": "Ver mais",
+    "projects": [
+      {
+        "title": "Nocturnal",
+        "tags": ["TypeScript", "React", "Tailwind", "Electron"]
+      },
+      {
+        "title": "Vulnerability Scanner",
+        "tags": ["C"]
+      },
+      {
+        "title": "PwnChat",
+        "tags": ["TypeScript", "React", "Tailwind", "Electron"]
+      }
+    ]
+  },
+  "curriculum": {
+    "title": "Currículo",
+    "education_title": "Formação Acadêmica",
+    "education_degree": "Bacharelado em Ciência da Computação",
+    "education_university": "Universidade Veiga de Almeida",
+    "education_focus": "Foco em Cibersegurança",
+    "education_period": "2025-2029",
+    "courses_title": "Cursos e Certificações",
+    "courses": ["Harvard CS50X", "Comptia Security+", "Google Cybersecurity"],
+    "languages_title": "Idiomas",
+    "languages": [
+      { "name": "Português", "level": "Nativo" },
+      { "name": "Inglês", "level": "Fluente" }
+    ]
+  },
+  "contact": {
+    "title": "Contato",
+    "subtitle": "Fale comigo",
+    "items": [
+      {
+        "title": "E-mail",
+        "value": "tteuw021@proton.me",
+        "button": "Enviar email"
+      },
+      {
+        "title": "GitHub",
+        "value": "tteuw0x",
+        "button": "Ver Perfil"
+      },
+      {
+        "title": "Instagram",
+        "value": "@2tteuw",
+        "button": "Ver Perfil"
+      },
+      {
+        "title": "Localização",
+        "value": "RJ, Brasil",
+        "button": "Ver Mapa"
+      }
+    ]
+  },
+  "footer": {
+    "subtitle": "Desenvolvedor Fullstack",
+    "text": "Todos os direitos reservados."
+  },
+
   "terminal": {
-    "bio": "Olá, me chamo Matheus.\nTenho 18 anos e criei esse blog pra documentar meus estudos.\nAtualmente ainda me considero um iniciante em desenvolvimento e análise de malware.\nGosto de desenvolvê-los principalmente em C/C++.",
+    "bio": "Olá, me chamo Matheus.\nTenho 18 anos sou estudante de cibersegurança, sólidas experiências em exploração de injeção de SQL, XSS e buffer overflows, com payloads pré-construídos em C/C++. \nExperiência em engenharia de shellcode ofuscado por AES-GCM e chamadas de função dinâmicas para execução em memória. \nAutor de scanners customizados em C, com validação de URLs/IPs, gethostbyname(), multithreading otimizado e relatórios JSON estruturados.\nReconhecimento avançado com Nmap, Gobuster, ARP sweep e fuzzing automatizado de parâmetros em Burp Suite.\n",
     "command1": "cat sobre-mim.txt",
     "command2": "./contato.sh"
   }

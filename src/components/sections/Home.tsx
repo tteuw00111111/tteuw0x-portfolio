@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ContactButton } from "@/components/ContactButton";
 import { Terminal } from "@/components/Terminal";
 
 type TerminalDictionary = {
@@ -18,6 +19,7 @@ type HomeProps = {
     subtitle_line2: string;
     bio_p1: string;
     bio_p2: string;
+    contact_button: string;
   };
   terminalDictionary: TerminalDictionary;
 };
@@ -113,6 +115,10 @@ export const Home: React.FC<HomeProps> = ({
             <p className="mt-4 font-poppins font-medium text-lg md:text-[24px] leading-relaxed md:leading-[26px] text-global-1">
               {dictionary.bio_p2}
             </p>
+
+            <div className="mt-8">
+              <ContactButton text={dictionary.contact_button} />
+            </div>
           </motion.div>
         </div>
 
