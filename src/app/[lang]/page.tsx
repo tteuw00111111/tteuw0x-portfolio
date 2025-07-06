@@ -5,6 +5,7 @@ import { Home } from "@/components/sections/Home";
 import { About } from "@/components/sections/About";
 
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { Skills } from "@/components/sections/Skills";
 
 export default async function Page({
   params: { lang },
@@ -23,6 +24,7 @@ export default async function Page({
             terminalDictionary={dictionary.terminal}
           />
           <About dictionary={dictionary.about} />
+          <Skills dictionary={dictionary.skills} />
         </AnimatedBackground>
       </main>
     </>

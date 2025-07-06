@@ -58,7 +58,7 @@ export const Home: React.FC<HomeProps> = ({
     <motion.section
       ref={targetRef}
       id="inicio"
-      className="min-h-screen flex items-center justify-center pt-24 lg:pt-0 "
+      className="h-screen flex items-center justify-center px-4 pt-24 pb-12 sm:pt-32 sm:pb-20"
       style={{
         scale: useTransform(scrollYProgress, [0, 1], [1, 0.95]),
         opacity: useTransform(scrollYProgress, [0, 1], [1, 0.75]),

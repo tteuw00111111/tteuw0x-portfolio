@@ -38,6 +38,14 @@
     ],
     "download_cv": "Baixar Currículo"
   },
+  "skills": {
+    "title": "Habilidades",
+    "subtitle": "Tecnologias com as quais já trabalhei ou tive contato no ambiente acadêmico ou projetos pessoais.",
+    "languages_title": "Linguagens",
+    "tech_title": "Tecnologias & Frameworks",
+    "databases_title": "Banco de Dados",
+    "devops_title": "DevOps / Cloud"
+  },
   "terminal": {
     "bio": "Olá, me chamo Matheus.\nTenho 18 anos e criei esse blog pra documentar meus estudos.\nAtualmente ainda me considero um iniciante em desenvolvimento e análise de malware.\nGosto de desenvolvê-los principalmente em C/C++.",
     "command1": "cat sobre-mim.txt",
