@@ -29,7 +29,7 @@ export const metadata = {
   title: "tteuw0x | Portfolio",
   description: "",
   icons: {
-    icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
+    icon: [{ url: "images/favicon.ico", type: "image/x-icon" }],
   },
 };
 
