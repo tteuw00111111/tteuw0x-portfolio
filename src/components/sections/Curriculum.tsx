@@ -117,7 +117,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ dictionary }) => {
           <h3 className="text-5xl sm:text-6xl font-medium text-stone-300">
             {dictionary.languages_title}
           </h3>
-          <p className="text-zinc-400 text-3xl sm:text-4xl font-light">
+          <p className="text-zinc-400 text-3xl sm:text-4xl mt-4 font-light">
             Línguas
           </p>
           <div className="flex flex-col gap-8 w-full mt-8">

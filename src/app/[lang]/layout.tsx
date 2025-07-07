@@ -26,8 +26,8 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: "Next.js Portfolio",
-  description: "A portfolio project with Next.js and Tailwind CSS",
+  title: "tteuw0x | Portfolio",
+  description: "",
   icons: {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
   },
