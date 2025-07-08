@@ -13,10 +13,10 @@ export const DownloadCVButton = ({ text }: { text: string }): JSX.Element => {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="
         flex items-center justify-between
-        w-full max-w-[300px] h-[110px]
-        px-8
+        w-full max-w-[260px] sm:max-w-[300px] h-[90px] sm:h-[110px]
+        px-6 sm:px-8
         rounded-2xl
-        font-poppins font-semibold text-[#d0ccc6] text-3xl
+        font-poppins font-semibold text-[#d0ccc6] text-2xl sm:text-3xl
         tracking-[-0.08em]
         bg-gradient-to-r from-[#831024] to-[#7B0217]
         shadow-[0px_2px_2px_#00000040]

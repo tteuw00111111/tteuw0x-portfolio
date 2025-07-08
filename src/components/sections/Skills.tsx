@@ -147,7 +147,7 @@ export const Skills: React.FC<SkillsProps> = ({ dictionary }) => {
         viewport={{ once: true, amount: 0.2 }}
       >
         <motion.div className="text-center" variants={itemVariants}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2 max-w-3xl">

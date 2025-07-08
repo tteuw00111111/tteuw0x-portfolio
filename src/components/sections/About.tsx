@@ -107,18 +107,16 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         >
           <h2
             className="
-  text-3xl           
-  sm:text-4xl
-  md:text-5xl
+  text-4xl
+  sm:text-5xl
   lg:text-6xl
   xl:text-7xl
-  hd:text-8xl
   font-semibold text-global-2 leading-tight
 "
           >
             {dictionary.title}
           </h2>
-          <p className="font-poppins font-light text-2xl text-global-1 whitespace-nowrap mt-2">
+          <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2">
             {dictionary.subtitle}
           </p>
         </motion.div>
@@ -146,7 +144,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
 
         <motion.p
           variants={itemVariants}
-          className="font-poppins text-lg text-global-1 leading-relaxed text-center max-w-3xl"
+          className="font-poppins text-base sm:text-lg text-global-1 leading-relaxed text-center max-w-3xl"
         >
           {dictionary.bio}
         </motion.p>

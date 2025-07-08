@@ -92,7 +92,7 @@
       },
       {
         "title": "GitHub",
-        "value": "tteuw0x",
+        "value": "tteuw00111111",
         "button": "View Profile"
       },
       {
@@ -112,7 +112,7 @@
     "text": "All rights reserved."
   },
   "terminal": {
-    "bio": "Hi, my name is Matheus.\nI'm 18 years old and a cybersecurity student. I have solid experience in exploiting SQL injection, XSS, and buffer overflows, with pre-built payloads in C/C++. \nExperience in engineering AES-GCM obfuscated shellcode and dynamic function calls for in-memory execution. \nAuthor of custom scanners in C, with URL/IP validation, gethostbyname(), optimized multithreading, and structured JSON reports.\nAdvanced reconnaissance with Nmap, Gobuster, ARP sweep, and automated parameter fuzzing in Burp Suite.\n",
+    "bio": "Hi, my name is Matheus.\nI'm 18 years old and a cybersecurity student. I have solid experience in exploiting SQL injection, XSS, and buffer overflows. \nAdvanced reconnaissance with Nmap, Gobuster, ARP sweep, and automated parameter fuzzing in Burp Suite.\n",
     "command1": "cat about-me.txt",
     "command2": "./contact.sh"
   }

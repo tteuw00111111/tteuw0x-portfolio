@@ -35,11 +35,11 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
   <motion.div
-    className="flex-[0_0_90%] sm:flex-[0_0_50%] md:flex-[0_0_40%] lg:flex-[0_0_31%] mx-4"
+    className="flex-[0_0_90%] sm:flex-[0_0_50%] md:flex-[0_0_45%] lg:flex-[0_0_31%] mx-4"
     whileHover={{ scale: 1.03, y: -8 }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
-    <div className="flex flex-col h-[580px] p-8 rounded-[35px] bg-gradient-to-b from-[#1B1B1B] to-[#1E1E1E] shadow-[0px_5px_5px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)]">
+    <div className="flex flex-col p-8 rounded-[35px] bg-gradient-to-b from-[#1B1B1B] to-[#1E1E1E] shadow-[0px_5px_5px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)]">
       <div className="relative w-full h-56 rounded-2xl overflow-hidden mb-6">
         <Image
           src={project.image}
@@ -50,7 +50,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 31vw"
         />
       </div>
-      <h3 className="text-stone-300 text-2xl font-semibold mb-4">
+      <h3 className="text-stone-300 text-xl sm:text-2xl font-semibold mb-4">
         {dictionary.title}
       </h3>
       <div className="flex flex-wrap gap-2 mb-6">
@@ -139,7 +139,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ dictionary }) => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2 max-w-3xl">

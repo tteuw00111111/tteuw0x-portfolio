@@ -41,7 +41,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ dictionary }) => {
           viewport={{ once: true, amount: 0.2 }}
           variants={itemVariants}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
         </motion.div>
@@ -130,7 +130,8 @@ export const Curriculum: React.FC<CurriculumProps> = ({ dictionary }) => {
               >
                 <div className="flex items-center justify-center gap-4 sm:gap-6">
                   <div className="relative w-16 h-10 rounded-md overflow-hidden flex-shrink-0">
-                    {lang.name.toLowerCase().includes("portugu") && (
+                    {(lang.name.toLowerCase() === "portuguese" ||
+                      lang.name.toLowerCase() === "português") && (
                       <Image
                         src="/images/brazil.png"
                         alt="Bandeira do Brasil"
@@ -138,10 +139,11 @@ export const Curriculum: React.FC<CurriculumProps> = ({ dictionary }) => {
                         objectFit="cover"
                       />
                     )}
-                    {lang.name.toLowerCase().includes("ingl") && (
+                    {(lang.name.toLowerCase() === "english" ||
+                      lang.name.toLowerCase() === "inglês") && (
                       <Image
-                        src="/images/uk.png"
-                        alt="Bandeira do Reino Unido"
+                        src="/images/usa_flag.png"
+                        alt="USA"
                         layout="fill"
                         objectFit="cover"
                       />

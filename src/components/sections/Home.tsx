@@ -60,7 +60,15 @@ export const Home: React.FC<HomeProps> = ({
     <motion.section
       ref={targetRef}
       id="inicio"
-      className="h-screen flex items-center justify-center px-4 pt-24 pb-12 sm:pt-32 sm:pb-20"
+      /* ------------- Responsive paddings ------------- */
+
+      className="
+        min-h-[calc(100svh-6rem)]
+        flex items-center justify-center
+        px-4
+        pt-20 sm:pt-24 md:pt-28 lg:pt-36 xl:pt-48 hd:pt-56 4k:pt-64
+        pb-12 sm:pb-20
+      "
       style={{
         scale: useTransform(scrollYProgress, [0, 1], [1, 0.95]),
         opacity: useTransform(scrollYProgress, [0, 1], [1, 0.75]),
@@ -70,15 +78,19 @@ export const Home: React.FC<HomeProps> = ({
       animate="visible"
     >
       <motion.div
-        className="flex flex-col lg:flex-row
-            w-full max-w-6xl mx-auto px-4 md:px-6
-            gap-12 lg:gap-20 items-center"
+        className="
+          flex flex-col lg:flex-row items-center
+          w-full max-w-6xl mx-auto
+          gap-12 lg:gap-20
+          px-4 md:px-6
+        "
         style={{ y }}
       >
-        <div className="w-full lg:max-w-[44%]">
+        {/* ---------- Left column ---------- */}
+
+        <div className="flex-[0_0_100%] lg:flex-[0_0_45%]">
           <motion.h1
-            className="font-poppins font-extrabold
-            text-4xl sm:text-5xl md:text-6xl lg:text-7xl hd:text-[80px]"
+            className="font-poppins font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
             variants={containerVariants}
             aria-label={`${dictionary.title_line1} ${dictionary.title_line2}`}
           >
@@ -98,9 +110,9 @@ export const Home: React.FC<HomeProps> = ({
           <motion.div variants={fadeInVariants}>
             <h2
               className="
-  mt-6 font-medium text-lg
-  sm:text-xl md:text-2xl lg:text-[28px] hd:text-[32px]
-  leading-snug lg:leading-[42px] hd:leading-[48px]
+  mt-4 lg:mt-3 xl:mt-6 font-medium
+  text-lg sm:text-xl lg:text-2xl xl:text-3xl
+  leading-snug
   text-header-gradient
 "
             >
@@ -109,20 +121,27 @@ export const Home: React.FC<HomeProps> = ({
               {dictionary.subtitle_line2}
             </h2>
 
-            <p className="mt-8 font-poppins font-medium text-lg md:text-[24px] leading-relaxed md:leading-[26px] text-global-1">
+            <p className="mt-6 lg:mt-4 xl:mt-8 font-poppins font-medium text-base md:text-lg xl:text-xl leading-relaxed text-global-1">
               {dictionary.bio_p1}
             </p>
-            <p className="mt-4 font-poppins font-medium text-lg md:text-[24px] leading-relaxed md:leading-[26px] text-global-1">
+            <p className="mt-4 lg:mt-3 xl:mt-4 font-poppins font-medium text-base md:text-lg xl:text-xl leading-relaxed text-global-1">
+              {" "}
               {dictionary.bio_p2}
             </p>
 
-            <div className="mt-8">
+            <div className="mt-6 lg:mt-5 xl:mt-8">
               <ContactButton text={dictionary.contact_button} />
             </div>
           </motion.div>
         </div>
 
-        <motion.div className="flex-1" variants={fadeInVariants}>
+        {/* ---------- Terminal ---------- */}
+
+        <motion.div
+          className="flex-1 w-full max-w-[640px]"
+          variants={fadeInVariants}
+        >
+          {" "}
           <Terminal dictionary={terminalDictionary} />
         </motion.div>
       </motion.div>

@@ -92,7 +92,7 @@
       },
       {
         "title": "GitHub",
-        "value": "tteuw0x",
+        "value": "tteuw00111111",
         "button": "Ver Perfil"
       },
       {
@@ -113,7 +113,7 @@
   },
 
   "terminal": {
-    "bio": "Olá, me chamo Matheus.\nTenho 18 anos sou estudante de cibersegurança, sólidas experiências em exploração de injeção de SQL, XSS e buffer overflows, com payloads pré-construídos em C/C++. \nExperiência em engenharia de shellcode ofuscado por AES-GCM e chamadas de função dinâmicas para execução em memória. \nAutor de scanners customizados em C, com validação de URLs/IPs, gethostbyname(), multithreading otimizado e relatórios JSON estruturados.\nReconhecimento avançado com Nmap, Gobuster, ARP sweep e fuzzing automatizado de parâmetros em Burp Suite.\n",
+    "bio": "Olá, me chamo Matheus.\nTenho 18 anos sou estudante de cibersegurança, sólidas experiências em exploração de injeção de SQL, XSS e buffer overflows.\nReconhecimento avançado com Nmap, Gobuster, ARP sweep e fuzzing automatizado de parâmetros em Burp Suite.\n",
     "command1": "cat sobre-mim.txt",
     "command2": "./contato.sh"
   }

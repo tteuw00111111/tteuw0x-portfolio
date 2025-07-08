@@ -63,7 +63,6 @@ export const Header: React.FC<{
     return () => observer.disconnect();
   }, [menuItems]);
 
-  // Effect to disable body scrolling when the mobile menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -82,11 +81,8 @@ export const Header: React.FC<{
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
-      <div className="relative flex justify-between items-center w-full px-4 sm:px-8 lg:px-[70px] py-4">
-        <h1
-          className="text-header-gradient font-poppins font-bold
-               text-xl sm:text-2xl lg:text-3xl"
-        >
+      <div className="relative flex justify-between items-center w-full px-4 sm:px-8 lg:px-12 xl:px-[70px] py-4">
+        <h1 className="text-header-gradient font-poppins font-bold text-xl sm:text-2xl lg:text-2xl xl:text-3xl">
           <Link href="#inicio">&lt;tteuw0x&gt;</Link>
         </h1>
 
@@ -102,12 +98,13 @@ export const Header: React.FC<{
           className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           role="menubar"
         >
-          <div className="flex gap-8 lg:gap-[54px] items-center">
+          <div className="flex gap-8 lg:gap-5 xl:gap-[54px] items-center">
+            {" "}
             {menuItems.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
-                className={`font-poppins font-semibold text-lg md:text-xl transition-colors duration-300 whitespace-nowrap ${
+                className={`font-poppins font-semibold text-lg md:text-lg lg:text-lg xl:text-xl transition-colors duration-300 whitespace-nowrap ${
                   activeSection === item.id
                     ? "text-header-gradient"
                     : "text-global-2 hover:text-header-gradient"
@@ -117,7 +114,8 @@ export const Header: React.FC<{
                 {item.label}
               </Link>
             ))}
-            <div className="text-global-2 font-poppins font-bold text-lg lg:text-xl transition-colors duration-300 hover:text-header-gradient">
+            <div className="text-global-2 font-poppins font-bold text-lg md:text-lg lg:text-lg xl:text-xl transition-colors duration-300 hover:text-header-gradient">
+              {" "}
               {lang === "pt-BR" ? (
                 <Link href={redirectedPathName("en")}>EN</Link>
               ) : (
@@ -145,7 +143,6 @@ export const Header: React.FC<{
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
                 className={`w-full text-center py-4 font-poppins font-bold text-base ${
-                  // Changed text-lg to text-base
                   activeSection === item.id
                     ? "text-header-gradient"
                     : "text-global-2"

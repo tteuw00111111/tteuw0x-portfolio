@@ -56,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({
 
   const socialLinks = [
     { href: "https://www.linkedin.com/", icon: FaLinkedin },
-    { href: "https://github.com/tteuw0x", icon: FaGithub },
+    { href: "https://github.com/tteuw00111111", icon: FaGithub },
     { href: "https://www.instagram.com/2tteuw", icon: FaInstagram },
   ];
 

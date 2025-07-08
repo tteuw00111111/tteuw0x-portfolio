@@ -13,7 +13,7 @@ import { IconType } from "react-icons";
 
 const contactData = [
   { icon: FaEnvelope, link: "mailto:tteuw021@proton.me" },
-  { icon: FaGithub, link: "https://github.com/tteuw0x" },
+  { icon: FaGithub, link: "https://github.com/tteuw00111111" },
   { icon: FaInstagram, link: "https://www.instagram.com/2tteuw/" },
   { icon: FaMapMarkerAlt, link: "https://maps.app.goo.gl/KDZgZNiJV5eJE9xn6" },
 ];
@@ -92,7 +92,7 @@ export const Contact: React.FC<ContactProps> = ({ dictionary }) => {
           viewport={{ once: true }}
           variants={itemVariants}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2">

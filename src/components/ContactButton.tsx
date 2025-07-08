@@ -11,9 +11,9 @@ export const ContactButton = ({ text }: { text: string }): JSX.Element => {
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
       className="
         flex items-center justify-center gap-3
-        py-6 px-8
+        py-3 px-5 xl:py-6 xl:px-8
         rounded-full
-        font-poppins font-semibold text-lg text-white
+        font-poppins font-semibold text-sm xl:text-lg text-white
         bg-gradient-to-r from-[#D1001C] to-[#6B000E]
         bg-[length:500%_auto]
         hover:bg-[position:right_center]
