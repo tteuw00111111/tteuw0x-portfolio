@@ -32,7 +32,10 @@ export const metadata = {
     icon: [{ url: "images/favicon.ico", type: "image/x-icon" }],
   },
 };
-
+interface RootLayoutProps {
+  children: React.ReactNode;
+  blurClass?: string; // Add this prop
+}
 export default function RootLayout({
   children,
   params: { lang },

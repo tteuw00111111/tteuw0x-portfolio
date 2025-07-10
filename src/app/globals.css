@@ -27,3 +27,10 @@ body {
     color: transparent;
   }
 }
+body.mobile-menu-open main {
+  filter: blur(8px) brightness(0.7);
+  transform: scale(0.98);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 0.3s ease-out, transform 0.3s ease-out;
+}

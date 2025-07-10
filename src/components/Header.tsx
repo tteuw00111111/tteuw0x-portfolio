@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Locale } from "@/i18n.config";
 import { FiMenu, FiX } from "react-icons/fi";
-// MODIFICATION: Import the 'Variants' type from framer-motion
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
 type HeaderDictionary = {
@@ -44,7 +43,6 @@ export const Header: React.FC<{
     [dictionary]
   );
 
-  // MODIFICATION: Added back the IntersectionObserver to track active section and fix the unused variable error.
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -70,49 +68,46 @@ export const Header: React.FC<{
     };
   }, [menuItems]);
 
+  // MODIFICATION: This hook now adds a class to the <body> tag to control the blur effect globally.
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.classList.add("mobile-menu-open");
     } else {
-      document.body.style.overflow = "unset";
+      document.body.classList.remove("mobile-menu-open");
     }
+
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.classList.remove("mobile-menu-open");
     };
   }, [isMenuOpen]);
 
-  // MODIFICATION: Explicitly typed as 'Variants' to fix the TypeScript error.
-  const menuContainerVariants: Variants = {
+  const navVariants: Variants = {
     hidden: {
-      opacity: 0,
-      scale: 0.95,
-      transition: {
-        when: "afterChildren",
-        staggerChildren: 0.05,
-        staggerDirection: -1,
-      },
+      x: "100%",
+      transition: { type: "tween", ease: "easeOut", duration: 0.3 },
     },
     visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-      },
+      x: 0,
+      transition: { type: "tween", ease: "easeIn", duration: 0.3 },
     },
   };
 
-  // MODIFICATION: Explicitly typed as 'Variants' to fix the TypeScript error.
-  const menuItemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+  const linkContainerVariants: Variants = {
+    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+  };
+
+  const linkItemVariants: Variants = {
+    hidden: { x: 50, opacity: 0 },
     visible: {
+      x: 0,
       opacity: 1,
-      y: 0,
       transition: { type: "spring", stiffness: 100 },
     },
   };
 
   return (
+    // The header is outside the main content, so it won't be blurred.
     <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
       <div className="relative flex justify-between items-center w-full px-6 md:px-8 lg:px-12 xl:px-[70px] py-4">
         <h1 className="text-header-gradient font-poppins font-bold text-xl sm:text-2xl lg:text-2xl xl:text-3xl">
@@ -124,9 +119,10 @@ export const Header: React.FC<{
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+          <FiMenu size={28} />
         </button>
 
+        {/* Desktop Navigation */}
         <nav
           className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           role="menubar"
@@ -159,40 +155,75 @@ export const Header: React.FC<{
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.nav
-            className="md:hidden fixed inset-0 z-40 bg-black/75 backdrop-blur-2xl flex flex-col items-center justify-start space-y-10 pt-[40vh]"
-            variants={menuContainerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            role="menubar"
-          >
-            {menuItems.map((item) => (
-              <motion.div key={item.id} variants={menuItemVariants}>
-                <Link
-                  href={item.href}
+          // This entire block is a portal to the body, so it's not a child of the blurred content.
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="md:hidden fixed inset-0 z-40 bg-black/60"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
+
+            {/* Side Panel */}
+            <motion.nav
+              className="md:hidden fixed top-0 bottom-0 right-0 w-4/5 max-w-sm z-50 bg-[#111111]/95 shadow-2xl flex flex-col"
+              variants={navVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              role="menubar"
+            >
+              <div className="flex justify-end p-5">
+                <button
                   onClick={() => setIsMenuOpen(false)}
-                  className={`font-poppins font-bold text-3xl tracking-wider ${
-                    activeSection === item.id
-                      ? "text-header-gradient"
-                      : "text-global-2"
-                  }`}
-                  aria-current={activeSection === item.id ? "page" : undefined}
+                  className="text-stone-400 hover:text-white"
+                  aria-label="Close menu"
                 >
-                  {item.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div variants={menuItemVariants} className="pt-8">
-              <div className="text-global-2 font-poppins font-bold text-2xl">
-                {lang === "pt-BR" ? (
-                  <Link href={redirectedPathName("en")}>Switch to EN</Link>
-                ) : (
-                  <Link href={redirectedPathName("pt-BR")}>Mudar para PT</Link>
-                )}
+                  <FiX size={32} />
+                </button>
               </div>
-            </motion.div>
-          </motion.nav>
+
+              <motion.div
+                className="flex flex-col space-y-8 px-10 pt-16 text-right"
+                variants={linkContainerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                {menuItems.map((item) => (
+                  <motion.div key={item.id} variants={linkItemVariants}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`font-poppins font-bold text-2xl tracking-wider ${
+                        activeSection === item.id
+                          ? "text-header-gradient"
+                          : "text-global-2"
+                      }`}
+                      aria-current={
+                        activeSection === item.id ? "page" : undefined
+                      }
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div variants={linkItemVariants} className="pt-8">
+                  <div className="text-global-2 font-poppins font-bold text-xl">
+                    {lang === "pt-BR" ? (
+                      <Link href={redirectedPathName("en")}>Switch to EN</Link>
+                    ) : (
+                      <Link href={redirectedPathName("pt-BR")}>
+                        Mudar para PT
+                      </Link>
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
     </header>
