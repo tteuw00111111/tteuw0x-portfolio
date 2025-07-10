@@ -1,10 +1,13 @@
+// src/components/sections/Home.tsx
 "use client";
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ContactButton } from "@/components/ContactButton";
 import { Terminal } from "@/components/Terminal";
+import { useIsMobile } from "@/useIsMobile";
 
+// (Keep your type definitions)
 type TerminalDictionary = {
   bio: string;
   command1: string;
@@ -29,21 +32,22 @@ export const Home: React.FC<HomeProps> = ({
   terminalDictionary,
 }) => {
   const targetRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+
+  // --- HOOKS ARE CALLED UNCONDITIONALLY ---
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "-50%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.75]);
+  // -----------------------------------------
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
   };
 
   const letterVariants = {
@@ -60,37 +64,36 @@ export const Home: React.FC<HomeProps> = ({
     <motion.section
       ref={targetRef}
       id="inicio"
-      /* ------------- Responsive paddings ------------- */
-
       className="
-        min-h-[calc(100svh-6rem)]
+        min-h-screen
         flex items-center justify-center
-        px-4
-        pt-20 sm:pt-24 md:pt-28 lg:pt-36 xl:pt-48 hd:pt-56 4k:pt-64
-        pb-12 sm:pb-20
+        pt-28 pb-16 md:pt-36 lg:pt-0
       "
-      style={{
-        scale: useTransform(scrollYProgress, [0, 1], [1, 0.95]),
-        opacity: useTransform(scrollYProgress, [0, 1], [1, 0.75]),
-      }}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
+      // Conditionally pass the MotionValue from the hook OR a static value
+      style={{
+        scale: isMobile ? 1 : scale,
+        opacity: isMobile ? 1 : opacity,
+      }}
     >
       <motion.div
         className="
           flex flex-col lg:flex-row items-center
           w-full max-w-6xl mx-auto
-          gap-12 lg:gap-20
+          gap-16 lg:gap-20
           px-4 md:px-6
         "
-        style={{ y }}
+        // Conditionally pass the MotionValue from the hook OR a static value
+        style={{ y: isMobile ? "0%" : y }}
       >
-        {/* ---------- Left column ---------- */}
+        {/* The rest of your component remains the same... */}
 
-        <div className="flex-[0_0_100%] lg:flex-[0_0_45%]">
+        {/* ---------- Left column ---------- */}
+        <div className="flex-[0_0_100%] lg:flex-[0_0_45%] text-center lg:text-left">
           <motion.h1
-            className="font-poppins font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+            className="font-poppins font-extrabold text-4xl sm:text-5xl lg:text-7xl xl:text-8xl"
             variants={containerVariants}
             aria-label={`${dictionary.title_line1} ${dictionary.title_line2}`}
           >
@@ -110,38 +113,34 @@ export const Home: React.FC<HomeProps> = ({
           <motion.div variants={fadeInVariants}>
             <h2
               className="
-  mt-4 lg:mt-3 xl:mt-6 font-medium
-  text-md sm:text-xl lg:text-2xl xl:text-3xl
-  leading-snug
-  text-header-gradient
-"
+                mt-4 font-medium
+                text-lg sm:text-xl lg:text-2xl
+                leading-snug text-header-gradient
+              "
             >
               {dictionary.subtitle_line1}
-              <br />
+              <br className="hidden sm:block" />
               {dictionary.subtitle_line2}
             </h2>
 
-            <p className="mt-6 lg:mt-4 xl:mt-8 font-poppins font-medium text-base md:text-lg xl:text-xl leading-relaxed text-global-1">
+            <p className="mt-6 font-poppins font-medium text-base md:text-lg leading-relaxed text-global-1">
               {dictionary.bio_p1}
             </p>
-            <p className="mt-4 lg:mt-3 xl:mt-4 font-poppins font-medium text-base md:text-lg xl:text-xl leading-relaxed text-global-1">
-              {" "}
+            <p className="mt-4 font-poppins font-medium text-base md:text-lg leading-relaxed text-global-1">
               {dictionary.bio_p2}
             </p>
 
-            <div className="mt-6 lg:mt-5 xl:mt-8">
+            <div className="mt-8 flex justify-center lg:justify-start">
               <ContactButton text={dictionary.contact_button} />
             </div>
           </motion.div>
         </div>
 
         {/* ---------- Terminal ---------- */}
-
         <motion.div
-          className="flex-1 w-full max-w-[640px]"
+          className="flex-1 w-full max-w-lg"
           variants={fadeInVariants}
         >
-          {" "}
           <Terminal dictionary={terminalDictionary} />
         </motion.div>
       </motion.div>
