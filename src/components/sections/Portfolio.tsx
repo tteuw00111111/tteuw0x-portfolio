@@ -5,9 +5,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt } from "react-icons/fa";
-import useResponsive from "@/hooks/useResponsive"; // MODIFICATION: Import hook
+import useResponsive from "@/hooks/useResponsive";
 
-// ... project data ...
 const projectsData = [
   {
     image: "/images/nocturnal.png",
@@ -36,7 +35,6 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
-  // MODIFICATION: Adjusted flex-basis for better responsiveness
   <motion.div
     className="flex-[0_0_90%] sm:flex-[0_0_80%] md:flex-[0_0_45%] lg:flex-[0_0_31%] mx-2 sm:mx-4"
     whileHover={{ scale: 1.03, y: -8 }}
@@ -84,7 +82,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
 const PrevButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   props
 ) => (
-  // MODIFICATION: Hide button on mobile, show on sm and up
   <button
     className="hidden sm:flex absolute top-1/2 -translate-y-1/2 left-0 sm:-left-12 z-10 w-12 h-12 rounded-full bg-global-1/80 border border-stone-700 items-center justify-center text-white disabled:opacity-30 hover:bg-stone-800 transition-colors"
     {...props}
@@ -96,7 +93,6 @@ const PrevButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
 const NextButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   props
 ) => (
-  // MODIFICATION: Hide button on mobile, show on sm and up
   <button
     className="hidden sm:flex absolute top-1/2 -translate-y-1/2 right-0 sm:-right-12 z-10 w-12 h-12 rounded-full bg-global-1/80 border border-stone-700 items-center justify-center text-white disabled:opacity-30 hover:bg-stone-800 transition-colors"
     {...props}
@@ -131,7 +127,6 @@ export const Portfolio: React.FC<PortfolioProps> = ({ dictionary }) => {
     offset: ["start end", "end start"],
   });
 
-  // MODIFICATION: Lighten parallax on mobile
   const x = useTransform(
     scrollYProgress,
     [0, 1],
@@ -140,13 +135,12 @@ export const Portfolio: React.FC<PortfolioProps> = ({ dictionary }) => {
 
   return (
     <section id="projetos" className="py-24 sm:py-32" ref={targetRef}>
-      {/* MODIFICATION: Added px-0 to allow carousel to bleed to edges on mobile */}
       <motion.div
         className="max-w-6xl mx-auto flex flex-col items-center gap-12 md:gap-16"
         style={{ x }}
       >
         <motion.div
-          className="text-center px-4" // Add padding back here
+          className="text-center px-4"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -167,7 +161,6 @@ export const Portfolio: React.FC<PortfolioProps> = ({ dictionary }) => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {/* The sm:px-16 provides space for the desktop buttons */}
           <div className="overflow-hidden sm:px-16" ref={emblaRef}>
             <div className="flex py-4 -ml-4">
               {projectsData.map((project, index) => (

@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { DownloadCVButton } from "@/components/DownloadCVButton";
-import useResponsive from "@/hooks/useResponsive"; // MODIFICATION: Import hook
+import useResponsive from "@/hooks/useResponsive";
 
 interface StatCardProps {
   title: string;
@@ -46,14 +46,12 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, description }) => {
 
 export const About: React.FC<AboutProps> = ({ dictionary }) => {
   const targetRef = useRef<HTMLDivElement>(null);
-  const { isMobile } = useResponsive(); // MODIFICATION: Use the hook
-
+  const { isMobile } = useResponsive();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
   });
 
-  // MODIFICATION: Lighten parallax on mobile, keep it for desktop
   const x = useTransform(
     scrollYProgress,
     [0, 1],
@@ -87,7 +85,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
       className="bg-global-1 pt-12 sm:pt-16 pb-24 sm:pb-32 px-4"
     >
       <motion.div
-        style={{ x }} // This will now be '0px' on mobile
+        style={{ x }}
         className="max-w-6xl mx-auto w-full flex flex-col items-center gap-12 md:gap-14 lg:gap-16"
         variants={containerVariants}
         initial="hidden"
@@ -134,7 +132,6 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         </motion.p>
         <motion.div
           variants={itemVariants}
-          // MODIFICATION: Ensure grid stacks on mobile and expands on larger screens
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full mt-8"
         >
           {dictionary.cards.map((card, index) => (

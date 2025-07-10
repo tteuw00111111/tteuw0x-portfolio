@@ -68,7 +68,6 @@ export const Header: React.FC<{
     };
   }, [menuItems]);
 
-  // MODIFICATION: This hook now adds a class to the <body> tag to control the blur effect globally.
   useEffect(() => {
     if (isMenuOpen) {
       document.body.classList.add("mobile-menu-open");
@@ -107,7 +106,6 @@ export const Header: React.FC<{
   };
 
   return (
-    // The header is outside the main content, so it won't be blurred.
     <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
       <div className="relative flex justify-between items-center w-full px-6 md:px-8 lg:px-12 xl:px-[70px] py-4">
         <h1 className="text-header-gradient font-poppins font-bold text-xl sm:text-2xl lg:text-2xl xl:text-3xl">
@@ -155,7 +153,6 @@ export const Header: React.FC<{
 
       <AnimatePresence>
         {isMenuOpen && (
-          // This entire block is a portal to the body, so it's not a child of the blurred content.
           <>
             {/* Backdrop */}
             <motion.div
