@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import useResponsive from "@/hooks/useResponsive";
 import {
   SiCplusplus,
   SiJavascript,
@@ -78,12 +79,16 @@ const SkillPill: React.FC<{ skill: Skill }> = ({ skill }) => {
   const Icon = skill.icon;
   return (
     <motion.div
-      className="flex items-center gap-3 h-14 px-5 rounded-full border-2 border-rose-700 bg-gradient-to-r from-red-700/20 to-rose-950/20 shadow-[0px_1px_2px_rgba(0,0,0,0.25),inset_0px_4px_4px_rgba(0,0,0,0.25)]"
-      whileHover={{ scale: 1.05, y: -3 }}
+      // MODIFICATION: Reduced height and padding for a smaller card
+      className="flex items-center gap-2 h-12 px-4 rounded-full border-2 border-rose-700 bg-gradient-to-r from-red-700/20 to-rose-950/20 shadow-md"
+      // MODIFICATION: Softer hover animation with less movement
+      whileHover={{ scale: 1.04, y: -2 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <Icon className="text-xl sm:text-2xl text-stone-300" />
-      <span className="font-medium text-white text-xl sm:text-2xl leading-relaxed whitespace-nowrap">
+      {/* MODIFICATION: Slightly smaller icon */}
+      <Icon className="text-lg sm:text-xl text-stone-300" />
+      {/* MODIFICATION: Smaller font size */}
+      <span className="font-medium text-white text-base leading-relaxed whitespace-nowrap">
         {skill.name}
       </span>
     </motion.div>
@@ -96,8 +101,11 @@ const SkillCategory: React.FC<{ title: string; skills: Skill[] }> = ({
 }) => {
   return (
     <div className="w-full bg-gradient-to-r from-zinc-900/60 to-stone-900/60 p-6 sm:p-8 rounded-[40px] shadow-[0px_4px_4px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)]">
-      <h3 className="text-stone-300 text-3xl font-semibold mb-8">{title}</h3>
-      <div className="flex flex-wrap gap-4">
+      <h3 className="text-stone-300 text-2xl md:text-3xl font-semibold mb-6 md:mb-8 text-center sm:text-left">
+        {title}
+      </h3>
+      {/* MODIFICATION: Adjusted gap for smaller cards */}
+      <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
         {skills.map((skill) => (
           <SkillPill key={skill.name} skill={skill} />
         ))}
@@ -119,12 +127,18 @@ type SkillsProps = {
 
 export const Skills: React.FC<SkillsProps> = ({ dictionary }) => {
   const targetRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useResponsive();
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["-150px", "150px"]);
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? ["0px", "0px"] : ["-150px", "150px"]
+  );
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -139,7 +153,7 @@ export const Skills: React.FC<SkillsProps> = ({ dictionary }) => {
   return (
     <section id="habilidades" className="py-24 sm:py-32 px-4" ref={targetRef}>
       <motion.div
-        className="max-w-6xl mx-auto flex flex-col items-center gap-16"
+        className="max-w-6xl mx-auto flex flex-col items-center gap-8 md:gap-12"
         style={{ x }}
         variants={containerVariants}
         initial="hidden"
@@ -147,7 +161,7 @@ export const Skills: React.FC<SkillsProps> = ({ dictionary }) => {
         viewport={{ once: true, amount: 0.2 }}
       >
         <motion.div className="text-center" variants={itemVariants}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-semibold text-global-2 leading-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2 max-w-3xl">
@@ -155,25 +169,19 @@ export const Skills: React.FC<SkillsProps> = ({ dictionary }) => {
           </p>
         </motion.div>
 
-        <motion.div className="w-full" variants={itemVariants}>
+        <motion.div
+          className="w-full space-y-8 md:space-y-12"
+          variants={itemVariants}
+        >
           <SkillCategory
             title={dictionary.languages_title}
             skills={languages}
           />
-        </motion.div>
-
-        <motion.div className="w-full" variants={itemVariants}>
           <SkillCategory title={dictionary.tech_title} skills={technologies} />
-        </motion.div>
-
-        <motion.div className="w-full" variants={itemVariants}>
           <SkillCategory
             title={dictionary.databases_title}
             skills={databases}
           />
-        </motion.div>
-
-        <motion.div className="w-full" variants={itemVariants}>
           <SkillCategory title={dictionary.devops_title} skills={devops} />
         </motion.div>
       </motion.div>

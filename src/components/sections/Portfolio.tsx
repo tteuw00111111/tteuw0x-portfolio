@@ -5,7 +5,9 @@ import useEmblaCarousel from "embla-carousel-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt } from "react-icons/fa";
+import useResponsive from "@/hooks/useResponsive"; // MODIFICATION: Import hook
 
+// ... project data ...
 const projectsData = [
   {
     image: "/images/nocturnal.png",
@@ -34,12 +36,13 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
+  // MODIFICATION: Adjusted flex-basis for better responsiveness
   <motion.div
-    className="flex-[0_0_90%] sm:flex-[0_0_50%] md:flex-[0_0_45%] lg:flex-[0_0_31%] mx-4"
+    className="flex-[0_0_90%] sm:flex-[0_0_80%] md:flex-[0_0_45%] lg:flex-[0_0_31%] mx-2 sm:mx-4"
     whileHover={{ scale: 1.03, y: -8 }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
-    <div className="flex flex-col p-8 rounded-[35px] bg-gradient-to-b from-[#1B1B1B] to-[#1E1E1E] shadow-[0px_5px_5px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)]">
+    <div className="flex flex-col h-full p-6 sm:p-8 rounded-[35px] bg-gradient-to-b from-[#1B1B1B] to-[#1E1E1E] shadow-[0px_5px_5px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)]">
       <div className="relative w-full h-56 rounded-2xl overflow-hidden mb-6">
         <Image
           src={project.image}
@@ -47,7 +50,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
           fill
           className="object-cover"
           quality={95}
-          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 31vw"
+          sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 45vw, 31vw"
         />
       </div>
       <h3 className="text-stone-300 text-xl sm:text-2xl font-semibold mb-4">
@@ -81,22 +84,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, dictionary }) => (
 const PrevButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   props
 ) => (
+  // MODIFICATION: Hide button on mobile, show on sm and up
   <button
-    className="hidden sm:flex absolute top-1/2 -translate-y-1/2 right-0 sm:-right-4 z-10 w-16 h-16 rounded-2xl bg-gradient-to-r from-red-700/20 to-rose-950/20 border-2 border-red-800/50 items-center justify-center text-white disabled:opacity-30"
+    className="hidden sm:flex absolute top-1/2 -translate-y-1/2 left-0 sm:-left-12 z-10 w-12 h-12 rounded-full bg-global-1/80 border border-stone-700 items-center justify-center text-white disabled:opacity-30 hover:bg-stone-800 transition-colors"
     {...props}
   >
-    <FaArrowLeft size={24} />
+    <FaArrowLeft size={20} />
   </button>
 );
 
 const NextButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   props
 ) => (
+  // MODIFICATION: Hide button on mobile, show on sm and up
   <button
-    className="absolute top-1/2 -translate-y-1/2 right-0 sm:-right-4 z-10 w-16 h-16 rounded-2xl bg-gradient-to-r from-red-700/20 to-rose-950/20 border-2 border-red-800/50 flex items-center justify-center text-white disabled:opacity-30"
+    className="hidden sm:flex absolute top-1/2 -translate-y-1/2 right-0 sm:-right-12 z-10 w-12 h-12 rounded-full bg-global-1/80 border border-stone-700 items-center justify-center text-white disabled:opacity-30 hover:bg-stone-800 transition-colors"
     {...props}
   >
-    <FaArrowRight size={24} />
+    <FaArrowRight size={20} />
   </button>
 );
 
@@ -119,21 +124,29 @@ export const Portfolio: React.FC<PortfolioProps> = ({ dictionary }) => {
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   const targetRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useResponsive(); // MODIFICATION: Use hook
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["150px", "-150px"]);
+  // MODIFICATION: Lighten parallax on mobile
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? ["0px", "0px"] : ["150px", "-150px"]
+  );
 
   return (
-    <section id="projetos" className="py-24 sm:py-32 px-4" ref={targetRef}>
+    <section id="projetos" className="py-24 sm:py-32" ref={targetRef}>
+      {/* MODIFICATION: Added px-0 to allow carousel to bleed to edges on mobile */}
       <motion.div
-        className="max-w-6xl mx-auto flex flex-col items-center gap-16"
+        className="max-w-6xl mx-auto flex flex-col items-center gap-12 md:gap-16"
         style={{ x }}
       >
         <motion.div
-          className="text-center"
+          className="text-center px-4" // Add padding back here
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -148,14 +161,15 @@ export const Portfolio: React.FC<PortfolioProps> = ({ dictionary }) => {
         </motion.div>
 
         <motion.div
-          className="relative w-full max-w-5xl"
+          className="relative w-full"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex py-4">
+          {/* The sm:px-16 provides space for the desktop buttons */}
+          <div className="overflow-hidden sm:px-16" ref={emblaRef}>
+            <div className="flex py-4 -ml-4">
               {projectsData.map((project, index) => (
                 <ProjectCard
                   key={index}

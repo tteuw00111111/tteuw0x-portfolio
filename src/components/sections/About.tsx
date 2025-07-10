@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { DownloadCVButton } from "@/components/DownloadCVButton";
+import useResponsive from "@/hooks/useResponsive"; // MODIFICATION: Import hook
 
 interface StatCardProps {
   title: string;
@@ -27,17 +28,7 @@ type AboutProps = {
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, description }) => {
   return (
-    <div
-      className="
-      h-28 w-full
-      bg-global-1
-      rounded-2xl 
-      p-4 
-      flex flex-col justify-center items-center
-      shadow-[0px_2px_4px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)]
-      transition-transform hover:scale-105
-    "
-    >
+    <div className="h-28 w-full bg-global-1 rounded-2xl p-4 flex flex-col justify-center items-center shadow-[0px_2px_4px_rgba(0,0,0,0.25),inset_0px_0px_7px_rgba(255,255,255,0.05)] transition-transform hover:scale-105">
       <h3 className="text-global-2 text-base font-normal font-poppins leading-snug">
         {title}
       </h3>
@@ -55,33 +46,38 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, description }) => {
 
 export const About: React.FC<AboutProps> = ({ dictionary }) => {
   const targetRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useResponsive(); // MODIFICATION: Use the hook
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["150px", "-150px"]);
+  // MODIFICATION: Lighten parallax on mobile, keep it for desktop
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? ["0px", "0px"] : ["150px", "-150px"]
+  );
+  const titleX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? ["0px", "0px"] : ["50px", "-50px"]
+  );
+  const imageX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? ["0px", "0px"] : ["-50px", "50px"]
+  );
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
   };
 
   return (
@@ -91,7 +87,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
       className="bg-global-1 pt-12 sm:pt-16 pb-24 sm:pb-32 px-4"
     >
       <motion.div
-        style={{ x }}
+        style={{ x }} // This will now be '0px' on mobile
         className="max-w-6xl mx-auto w-full flex flex-col items-center gap-12 md:gap-14 lg:gap-16"
         variants={containerVariants}
         initial="hidden"
@@ -101,19 +97,9 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         <motion.div
           variants={itemVariants}
           className="text-center"
-          style={{
-            x: useTransform(scrollYProgress, [0, 1], ["50px", "-50px"]),
-          }}
+          style={{ x: titleX }}
         >
-          <h2
-            className="
-  text-4xl
-  sm:text-5xl
-  lg:text-6xl
-  xl:text-7xl
-  font-semibold text-global-2 leading-tight
-"
-          >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2">
@@ -122,9 +108,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         </motion.div>
 
         <motion.div
-          style={{
-            x: useTransform(scrollYProgress, [0, 1], ["-50px", "50px"]),
-          }}
+          style={{ x: imageX }}
           variants={itemVariants}
           className="group relative w-60 h-60 sm:w-72 sm:h-72 lg:w-96 lg:h-96"
         >
@@ -150,6 +134,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         </motion.p>
         <motion.div
           variants={itemVariants}
+          // MODIFICATION: Ensure grid stacks on mobile and expands on larger screens
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full mt-8"
         >
           {dictionary.cards.map((card, index) => (
@@ -163,7 +148,7 @@ export const About: React.FC<AboutProps> = ({ dictionary }) => {
         </motion.div>
         <motion.div
           variants={itemVariants}
-          className="w-full flex justify-center mt-16"
+          className="w-full flex justify-center mt-8 md:mt-16"
         >
           <DownloadCVButton text={dictionary.download_cv} />
         </motion.div>

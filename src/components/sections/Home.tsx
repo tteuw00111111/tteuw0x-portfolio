@@ -1,13 +1,11 @@
-// src/components/sections/Home.tsx
 "use client";
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ContactButton } from "@/components/ContactButton";
 import { Terminal } from "@/components/Terminal";
-import { useIsMobile } from "@/useIsMobile";
+import useResponsive from "@/hooks/useResponsive";
 
-// (Keep your type definitions)
 type TerminalDictionary = {
   bio: string;
   command1: string;
@@ -32,9 +30,8 @@ export const Home: React.FC<HomeProps> = ({
   terminalDictionary,
 }) => {
   const targetRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
-  // --- HOOKS ARE CALLED UNCONDITIONALLY ---
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -43,7 +40,6 @@ export const Home: React.FC<HomeProps> = ({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.75]);
-  // -----------------------------------------
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -64,33 +60,19 @@ export const Home: React.FC<HomeProps> = ({
     <motion.section
       ref={targetRef}
       id="inicio"
-      className="
-        min-h-screen
-        flex items-center justify-center
-        pt-28 pb-16 md:pt-36 lg:pt-0
-      "
+      className="min-h-screen flex items-center justify-center pt-28 pb-16 md:pt-36 lg:pt-0 px-4"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      // Conditionally pass the MotionValue from the hook OR a static value
       style={{
         scale: isMobile ? 1 : scale,
         opacity: isMobile ? 1 : opacity,
       }}
     >
       <motion.div
-        className="
-          flex flex-col lg:flex-row items-center
-          w-full max-w-6xl mx-auto
-          gap-16 lg:gap-20
-          px-4 md:px-6
-        "
-        // Conditionally pass the MotionValue from the hook OR a static value
+        className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto gap-12 lg:gap-16"
         style={{ y: isMobile ? "0%" : y }}
       >
-        {/* The rest of your component remains the same... */}
-
-        {/* ---------- Left column ---------- */}
         <div className="flex-[0_0_100%] lg:flex-[0_0_45%] text-center lg:text-left">
           <motion.h1
             className="font-poppins font-extrabold text-4xl sm:text-5xl lg:text-7xl xl:text-8xl"
@@ -119,8 +101,8 @@ export const Home: React.FC<HomeProps> = ({
               "
             >
               {dictionary.subtitle_line1}
-              <br className="hidden sm:block" />
-              {dictionary.subtitle_line2}
+              {/* MODIFICATION: This <br> will only show on mobile screens */}
+              <br className="sm:hidden" /> {dictionary.subtitle_line2}
             </h2>
 
             <p className="mt-6 font-poppins font-medium text-base md:text-lg leading-relaxed text-global-1">
@@ -136,7 +118,6 @@ export const Home: React.FC<HomeProps> = ({
           </motion.div>
         </div>
 
-        {/* ---------- Terminal ---------- */}
         <motion.div
           className="flex-1 w-full max-w-lg"
           variants={fadeInVariants}

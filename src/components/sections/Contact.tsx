@@ -10,7 +10,9 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import { IconType } from "react-icons";
+import useResponsive from "@/hooks/useResponsive"; // MODIFICATION: Import hook
 
+// ... contact data ...
 const contactData = [
   { icon: FaEnvelope, link: "mailto:tteuw021@proton.me" },
   { icon: FaGithub, link: "https://github.com/tteuw00111111" },
@@ -35,10 +37,12 @@ const ContactItem: React.FC<ContactItemProps> = ({ item, dictionary }) => {
   return (
     <div className="flex flex-col items-center text-center gap-3">
       <Icon className="text-4xl text-red-700 mb-2" />
-      <h3 className="text-3xl font-semibold text-stone-300">
+      <h3 className="text-2xl md:text-3xl font-semibold text-stone-300">
         {dictionary.title}
       </h3>
-      <p className="text-xl font-light text-stone-400">{dictionary.value}</p>
+      <p className="text-lg md:text-xl font-light text-stone-400">
+        {dictionary.value}
+      </p>
       <a
         href={item.link}
         target="_blank"
@@ -72,18 +76,25 @@ export const Contact: React.FC<ContactProps> = ({ dictionary }) => {
   };
 
   const targetRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useResponsive(); // MODIFICATION: Use hook
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end end"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 0.7], ["100px", "0px"]);
+  // MODIFICATION: Lighten animation on mobile
+  const y = useTransform(
+    scrollYProgress,
+    [0, 0.7],
+    isMobile ? ["0px", "0px"] : ["100px", "0px"]
+  );
   const opacity = useTransform(scrollYProgress, [0, 0.7], [0.5, 1]);
 
   return (
     <section id="contato" className="py-24 sm:py-32 px-4" ref={targetRef}>
       <motion.div
-        className="max-w-6xl mx-auto flex flex-col items-center text-center gap-64"
+        className="max-w-6xl mx-auto flex flex-col items-center text-center gap-32 md:gap-48" // MODIFICATION: Reduced gap
         style={{ y, opacity }}
       >
         <motion.div
@@ -92,7 +103,7 @@ export const Contact: React.FC<ContactProps> = ({ dictionary }) => {
           viewport={{ once: true }}
           variants={itemVariants}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-semibold text-global-2 leading-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-global-2 leading-tight">
             {dictionary.title}
           </h2>
           <p className="font-poppins font-light text-xl sm:text-2xl text-global-1 mt-2">
@@ -101,16 +112,17 @@ export const Contact: React.FC<ContactProps> = ({ dictionary }) => {
         </motion.div>
 
         <motion.div
-          className="relative w-full bg-gradient-to-r from-zinc-900/50 to-stone-900/50 rounded-[49px] shadow-[0px_4px_10px_rgba(0,0,0,0.25),inset_0px_0px_8px_rgba(255,255,255,0.05)] pt-28 p-8 sm:p-12"
+          className="relative w-full bg-gradient-to-r from-zinc-900/50 to-stone-900/50 rounded-[49px] shadow-[0px_4px_10px_rgba(0,0,0,0.25),inset_0px_0px_8px_rgba(255,255,255,0.05)] pt-20 md:pt-28 p-6 sm:p-8 md:p-12" // MODIFICATION: Adjusted padding
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={itemVariants}
         >
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative w-44 h-44">
+          {/* MODIFICATION: Resized and positioned profile image */}
+          <div className="absolute -top-20 md:-top-32 left-1/2 -translate-x-1/2">
+            <div className="relative w-32 h-32 md:w-44 md:h-44">
               <Image
-                src="/images/profile-placeholder.png"
+                src="/images/about_image.svg" // Changed to an existing image for placeholder
                 alt="Profile Picture"
                 layout="fill"
                 className="rounded-full object-cover border-4 border-stone-800"
