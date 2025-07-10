@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Locale } from "@/i18n.config";
 import { FiMenu, FiX } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
+// MODIFICATION: Import the 'Variants' type from framer-motion
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 type HeaderDictionary = {
   home: string;
@@ -43,7 +44,32 @@ export const Header: React.FC<{
     [dictionary]
   );
 
-  // This hook correctly locks the body scroll when the menu is open.
+  // MODIFICATION: Added back the IntersectionObserver to track active section and fix the unused variable error.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -70% 0px" }
+    );
+
+    menuItems.forEach((item) => {
+      const element = document.getElementById(item.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      menuItems.forEach((item) => {
+        const element = document.getElementById(item.id);
+        if (element) observer.unobserve(element);
+      });
+    };
+  }, [menuItems]);
+
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -55,7 +81,8 @@ export const Header: React.FC<{
     };
   }, [isMenuOpen]);
 
-  const menuContainerVariants = {
+  // MODIFICATION: Explicitly typed as 'Variants' to fix the TypeScript error.
+  const menuContainerVariants: Variants = {
     hidden: {
       opacity: 0,
       scale: 0.95,
@@ -75,7 +102,8 @@ export const Header: React.FC<{
     },
   };
 
-  const menuItemVariants = {
+  // MODIFICATION: Explicitly typed as 'Variants' to fix the TypeScript error.
+  const menuItemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -132,7 +160,6 @@ export const Header: React.FC<{
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
-            // MODIFICATION: Reverted to a strong blur effect with a darker background
             className="md:hidden fixed inset-0 z-40 bg-black/75 backdrop-blur-2xl flex flex-col items-center justify-start space-y-10 pt-[40vh]"
             variants={menuContainerVariants}
             initial="hidden"
