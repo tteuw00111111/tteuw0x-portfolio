@@ -81,11 +81,11 @@ export const Header: React.FC<{
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
-      <div className="relative flex justify-between items-center w-full px-4 sm:px-8 lg:px-12 xl:px-[70px] py-4">
+      <div className="relative flex justify-between items-center w-full px-6 md:px-8 lg:px-12 xl:px-[70px] py-4">
+        {" "}
         <h1 className="text-header-gradient font-poppins font-bold text-xl sm:text-2xl lg:text-2xl xl:text-3xl">
           <Link href="#inicio">&lt;tteuw0x&gt;</Link>
         </h1>
-
         <button
           className="md:hidden p-2 text-global-2 z-50"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -93,7 +93,6 @@ export const Header: React.FC<{
         >
           {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </button>
-
         <nav
           className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           role="menubar"

@@ -128,7 +128,7 @@ export const Curriculum: React.FC<CurriculumProps> = ({ dictionary }) => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <div className="flex items-center justify-center gap-4 sm:gap-6">
+                <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                   <div className="relative w-16 h-10 rounded-md overflow-hidden flex-shrink-0">
                     {(lang.name.toLowerCase() === "portuguese" ||
                       lang.name.toLowerCase() === "português") && (
@@ -149,11 +149,11 @@ export const Curriculum: React.FC<CurriculumProps> = ({ dictionary }) => {
                       />
                     )}
                   </div>
-                  <p className="w-36 text-left text-2xl font-semibold text-stone-300">
+                  <p className="w-28 sm:w-36 text-left text-2xl font-semibold text-stone-300">
                     {lang.name}
                   </p>
-                  <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-red-700 to-rose-900 rounded-full" />
-                  <span className="w-24 text-left text-lg font-light text-stone-400">
+                  <div className="h-1 flex-shrink-0 w-24 sm:w-32 bg-gradient-to-r from-red-700 to-rose-900 rounded-full" />{" "}
+                  <span className="w-24 flex-shrink-0 text-left text-lg font-light text-stone-400">
                     {lang.level}
                   </span>
                 </div>

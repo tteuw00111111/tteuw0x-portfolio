@@ -108,11 +108,11 @@ export const Terminal: React.FC<TerminalProps> = ({ dictionary }) => {
           </p>
 
           {commandFinished && (
-            <div className="flex gap-4 items-start">
+            <div className="flex flex-col md:flex-row gap-4 items-start">
               <pre className="text-red-700 text-[8px] font-bold leading-tight pt-1">
                 {typedAscii}
               </pre>
-              <div className="text-white text-xs sm:text-sm md:text-base leading-relaxed whitespace-pre-wrap">
+              <div className="text-white text-xs sm:text-sm md:text-base leading-relaxed whitespace-pre-wrap w-full">
                 {typedBio}
               </div>
             </div>

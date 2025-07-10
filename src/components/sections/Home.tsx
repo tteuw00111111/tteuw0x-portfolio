@@ -111,7 +111,7 @@ export const Home: React.FC<HomeProps> = ({
             <h2
               className="
   mt-4 lg:mt-3 xl:mt-6 font-medium
-  text-lg sm:text-xl lg:text-2xl xl:text-3xl
+  text-md sm:text-xl lg:text-2xl xl:text-3xl
   leading-snug
   text-header-gradient
 "

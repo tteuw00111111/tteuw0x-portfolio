@@ -82,7 +82,7 @@ const PrevButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
   props
 ) => (
   <button
-    className="absolute top-1/2 -translate-y-1/2 left-0 sm:-left-4 z-10 w-16 h-16 rounded-2xl bg-gradient-to-r from-red-700/20 to-rose-950/20 border-2 border-red-800/50 flex items-center justify-center text-white disabled:opacity-30"
+    className="hidden sm:flex absolute top-1/2 -translate-y-1/2 right-0 sm:-right-4 z-10 w-16 h-16 rounded-2xl bg-gradient-to-r from-red-700/20 to-rose-950/20 border-2 border-red-800/50 items-center justify-center text-white disabled:opacity-30"
     {...props}
   >
     <FaArrowLeft size={24} />
