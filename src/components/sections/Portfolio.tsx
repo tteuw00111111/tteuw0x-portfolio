@@ -9,6 +9,10 @@ import useResponsive from "@/hooks/useResponsive";
 
 const projectsData = [
   {
+    image: "/images/master-prime.png", // Your new project image
+    link: "https://github.com/tteuw00111111/master-prime-website", // IMPORTANT: Replace with your actual GitHub link
+  },
+  {
     image: "/images/nocturnal.png",
     link: "https://github.com/NocturnalApp/Nocturnal",
   },

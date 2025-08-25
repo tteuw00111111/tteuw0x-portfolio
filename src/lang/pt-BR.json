@@ -54,6 +54,10 @@
     "see_more": "Ver mais",
     "projects": [
       {
+        "title": "Site para Master Prime",
+        "tags": ["Next.js", "React", "Tailwind CSS", "Vercel"]
+      },
+      {
         "title": "Nocturnal",
         "tags": ["TypeScript", "React", "Tailwind", "Electron"]
       },
