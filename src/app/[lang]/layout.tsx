@@ -27,19 +27,20 @@ export const viewport = {
 
 export const metadata = {
   title: "tteuw0x | Portfolio",
-  description: "",
+  description: "Portfolio Website",
   icons: {
-    icon: [{ url: "images/favicon.ico", type: "image/x-icon" }],
+    icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params: { lang },
+  params,
 }: {
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
+  const { lang } = await params;
   return (
     <html
       lang={lang}

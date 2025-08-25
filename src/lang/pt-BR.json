@@ -5,7 +5,8 @@
     "skills": "Habilidades",
     "projects": "Projetos",
     "curriculum": "Currículo",
-    "contact": "Contato"
+    "contact": "Contato",
+    "articles": "Artigos"
   },
   "home": {
     "title_line1": "Matheus",
@@ -109,12 +110,27 @@
   },
   "footer": {
     "subtitle": "Desenvolvedor Fullstack",
-    "text": "Todos os direitos reservados."
+    "text": "Todos os direitos reservados.",
+    "back_to": "Voltar para"
   },
 
   "terminal": {
     "bio": "Olá, me chamo Matheus.\nTenho 18 anos sou estudante de cibersegurança, sólidas experiências em exploração de injeção de SQL, XSS e buffer overflows.\nReconhecimento avançado com Nmap, Gobuster, ARP sweep e fuzzing automatizado de parâmetros em Burp Suite.\n",
     "command1": "cat sobre-mim.txt",
     "command2": "./contato.sh"
+  },
+  "articles": {
+    "title": "Artigos",
+    "description": "Explore meus artigos acadêmicos e writeups detalhados de CTFs.",
+    "papersTitle": "Artigos Acadêmicos",
+    "papersDescription": "Estudos aprofundados sobre meus estudos, Windows Internals, Engenharia Reversa, Desenvolvimento de Malware, Desenvolvimento Web",
+    "ctfsTitle": "CTF Writeups",
+    "ctfsDescription": "Passo a passo e soluções para desafios de Capture The Flag que resolvi.",
+    "back_to_papers": "Voltar para Todos os Artigos",
+    "back_to_ctfs": "Voltar para Todos os Writeups"
+  },
+  "latest_articles": {
+    "title": "Artigos Recentes",
+    "view_all": "Ver Todos"
   }
 }

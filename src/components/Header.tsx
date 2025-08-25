@@ -14,6 +14,7 @@ type HeaderDictionary = {
   projects: string;
   curriculum: string;
   contact: string;
+  articles: string;
 };
 
 export const Header: React.FC<{
@@ -23,6 +24,10 @@ export const Header: React.FC<{
   const pathName = usePathname();
   const [activeSection, setActiveSection] = useState("inicio");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const isOnPublicationsPage = pathName.includes("/publications");
+  const isOnArticlesPage = pathName.includes("/articles");
+  const isHomePage = pathName === `/${lang}` || pathName === `/${lang}/`;
 
   const redirectedPathName = (locale: Locale) => {
     if (!pathName) return "/";
@@ -39,8 +44,13 @@ export const Header: React.FC<{
       { id: "projetos", label: dictionary.projects, href: "#projetos" },
       { id: "curriculo", label: dictionary.curriculum, href: "#curriculo" },
       { id: "contato", label: dictionary.contact, href: "#contato" },
+      {
+        id: "articles",
+        label: dictionary.articles,
+        href: `/${lang}/articles`,
+      },
     ],
-    [dictionary]
+    [dictionary, lang]
   );
 
   useEffect(() => {
@@ -56,14 +66,18 @@ export const Header: React.FC<{
     );
 
     menuItems.forEach((item) => {
-      const element = document.getElementById(item.id);
-      if (element) observer.observe(element);
+      if (item.href.startsWith("#")) {
+        const element = document.getElementById(item.id);
+        if (element) observer.observe(element);
+      }
     });
 
     return () => {
       menuItems.forEach((item) => {
-        const element = document.getElementById(item.id);
-        if (element) observer.unobserve(element);
+        if (item.href.startsWith("#")) {
+          const element = document.getElementById(item.id);
+          if (element) observer.unobserve(element);
+        }
       });
     };
   }, [menuItems]);
@@ -80,36 +94,17 @@ export const Header: React.FC<{
     };
   }, [isMenuOpen]);
 
-  const navVariants: Variants = {
-    hidden: {
-      x: "100%",
-      transition: { type: "tween", ease: "easeOut", duration: 0.3 },
-    },
-    visible: {
-      x: 0,
-      transition: { type: "tween", ease: "easeIn", duration: 0.3 },
-    },
-  };
-
-  const linkContainerVariants: Variants = {
-    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
-    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-  };
-
-  const linkItemVariants: Variants = {
-    hidden: { x: 50, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 100 },
-    },
-  };
+  const navVariants: Variants = {};
+  const linkContainerVariants: Variants = {};
+  const linkItemVariants: Variants = {};
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#1e1e1e]/80 backdrop-blur-lg">
       <div className="relative flex justify-between items-center w-full px-6 md:px-8 lg:px-12 xl:px-[70px] py-4">
         <h1 className="text-header-gradient font-poppins font-bold text-xl sm:text-2xl lg:text-2xl xl:text-3xl">
-          <Link href="#inicio">&lt;tteuw0x&gt;</Link>
+          <Link href={isOnPublicationsPage ? `/${lang}` : "#inicio"}>
+            &lt;tteuw0x&gt;
+          </Link>
         </h1>
 
         <button
@@ -120,26 +115,39 @@ export const Header: React.FC<{
           <FiMenu size={28} />
         </button>
 
-        {/* Desktop Navigation */}
         <nav
           className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           role="menubar"
         >
           <div className="flex gap-8 lg:gap-5 xl:gap-[54px] items-center">
-            {menuItems.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={`font-poppins font-semibold text-lg transition-colors duration-300 whitespace-nowrap ${
-                  activeSection === item.id
-                    ? "text-header-gradient"
-                    : "text-global-2 hover:text-header-gradient"
-                }`}
-                aria-current={activeSection === item.id ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {menuItems.map((item) => {
+              let isActive = false;
+              if (isOnArticlesPage) {
+                isActive = item.id === "articles";
+              } else {
+                isActive = activeSection === item.id;
+              }
+
+              let finalHref = item.href;
+              if (item.href.startsWith("#") && !isHomePage) {
+                finalHref = `/${lang}${item.href}`;
+              }
+
+              return (
+                <Link
+                  key={item.id}
+                  href={finalHref}
+                  className={`font-poppins font-semibold text-lg transition-colors duration-300 whitespace-nowrap ${
+                    isActive
+                      ? "text-header-gradient"
+                      : "text-global-2 hover:text-header-gradient"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <div className="text-global-2 font-poppins font-bold text-lg transition-colors duration-300 hover:text-header-gradient">
               {lang === "pt-BR" ? (
                 <Link href={redirectedPathName("en")}>EN</Link>
@@ -154,16 +162,7 @@ export const Header: React.FC<{
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            {/* Backdrop */}
-            <motion.div
-              className="md:hidden fixed inset-0 z-40 bg-black/60"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMenuOpen(false)}
-            />
-
-            {/* Side Panel */}
+            <motion.div />
             <motion.nav
               className="md:hidden fixed top-0 bottom-0 right-0 w-4/5 max-w-sm z-50 bg-[#111111]/95 shadow-2xl flex flex-col"
               variants={navVariants}
@@ -181,7 +180,6 @@ export const Header: React.FC<{
                   <FiX size={32} />
                 </button>
               </div>
-
               <motion.div
                 className="flex flex-col space-y-8 px-10 pt-16 text-right"
                 variants={linkContainerVariants}
@@ -189,24 +187,31 @@ export const Header: React.FC<{
                 animate="visible"
                 exit="hidden"
               >
-                {menuItems.map((item) => (
-                  <motion.div key={item.id} variants={linkItemVariants}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`font-poppins font-bold text-2xl tracking-wider ${
-                        activeSection === item.id
-                          ? "text-header-gradient"
-                          : "text-global-2"
-                      }`}
-                      aria-current={
-                        activeSection === item.id ? "page" : undefined
-                      }
-                    >
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
+                {menuItems.map((item) => {
+                  const isActive =
+                    (activeSection === item.id && !isOnPublicationsPage) ||
+                    (item.id === "articles" && isOnPublicationsPage);
+
+                  let finalHref = item.href;
+                  if (item.href.startsWith("#") && !isHomePage) {
+                    finalHref = `/${lang}${item.href}`;
+                  }
+
+                  return (
+                    <motion.div key={item.id} variants={linkItemVariants}>
+                      <Link
+                        href={finalHref}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`font-poppins font-bold text-2xl tracking-wider ${
+                          isActive ? "text-header-gradient" : "text-global-2"
+                        }`}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
                 <motion.div variants={linkItemVariants} className="pt-8">
                   <div className="text-global-2 font-poppins font-bold text-xl">
                     {lang === "pt-BR" ? (

@@ -1,3 +1,5 @@
+// src/middleware.ts
+
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -10,7 +12,8 @@ function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  const locales: string[] = [...i18n.locales];
+  // @ts-ignore locales are readonly
+  const locales: string[] = i18n.locales;
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
   const locale = matchLocale(languages, locales, i18n.defaultLocale);
@@ -35,6 +38,8 @@ export function middleware(request: NextRequest) {
   }
 }
 
+// THIS IS THE UPDATED PART
 export const config = {
+  // Matcher ignoring `/_next/` and `/api/`
   matcher: ["/((?!api|_next/static|_next/image|images|favicon.ico).*)"],
 };
